@@ -9,7 +9,7 @@ const getEmailReducer = (state = INITIAL_STATE, action) => {
   case GET_EMAIL:
     return {
       ...state,
-      email: action.payload,
+      email: action.userEmail,
     };
   default:
     return state;
