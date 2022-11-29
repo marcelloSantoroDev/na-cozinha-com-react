@@ -1,6 +1,6 @@
 export const GET_EMAIL = 'GET_EMAIL';
 
-export const getEmail = (payload) => ({
+export const getEmail = (userEmail) => ({
   type: GET_EMAIL,
-  payload,
+  userEmail,
 });
