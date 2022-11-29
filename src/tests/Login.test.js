@@ -19,7 +19,20 @@ describe('testes de login', () => {
     userEvent.type(inputEmail, 'tryber@teste.com');
     expect(loginButton).toBeDisabled();
 
-    userEvent.type(inputPassword, '123123');
+    userEvent.type(inputPassword, '1231231');
     expect(loginButton).toBeEnabled();
+  });
+  test('2', () => {
+    const { history } = renderWithRouterAndRedux(<App />);
+
+    const inputEmail = screen.getByTestId('email-input');
+    const inputPassword = screen.getByTestId('password-input');
+    const loginButton = screen.getByTestId('login-submit-btn');
+
+    userEvent.type(inputEmail, 'tryber@teste.com');
+    userEvent.type(inputPassword, '1231231');
+    userEvent.click(loginButton);
+
+    expect(history.location.pathname).toBe('/meals');
   });
 });
