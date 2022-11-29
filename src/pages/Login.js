@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { getEmail } from '../redux/actions';
 
 class Login extends Component {
   state = {
@@ -17,9 +19,17 @@ class Login extends Component {
     const SIX = 6;
     const regex = /\S+@\S+\.\S+/;
     const checkEmail = regex.test(email);
-    const checkPassword = password.length >= SIX;
+    const checkPassword = password.length > SIX;
     const validate = checkEmail && checkPassword;
     this.setState({ isButtonDisabled: !validate });
+  };
+
+  handleClick = () => {
+    const { dispatch } = this.props;
+    const { email } = this.state;
+    dispatch(getEmail(email));
+    const emailUserObjectToSave = { email };
+    localStorage.setItem('user', JSON.stringify(emailUserObjectToSave));
   };
 
   render() {
@@ -44,6 +54,7 @@ class Login extends Component {
           disabled={ isButtonDisabled }
           type="button"
           data-testid="login-submit-btn"
+          onClick={ this.handleClick }
         >
           Entrar
 
@@ -53,4 +64,6 @@ class Login extends Component {
   }
 }
 
-export default Login;
+Login.propTypes = {}.isRequired;
+
+export default connect()(Login);
