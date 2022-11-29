@@ -25,11 +25,12 @@ class Login extends Component {
   };
 
   handleClick = () => {
-    const { dispatch } = this.props;
+    const { dispatch, history } = this.props;
     const { email } = this.state;
     dispatch(getEmail(email));
     const emailUserObjectToSave = { email };
     localStorage.setItem('user', JSON.stringify(emailUserObjectToSave));
+    history.push('/meals');
   };
 
   render() {
