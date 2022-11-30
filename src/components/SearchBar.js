@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { ingredientFetch,
   nameFetch,
   firstLetterFetch,
@@ -6,6 +7,7 @@ import { ingredientFetch,
   drinkNameFetch,
   drinkFirstLetterFetch,
 } from '../services/SearchBarFetch';
+import { getRecipes } from '../redux/actions';
 
 const firstLetterString = 'First Letter';
 
@@ -13,7 +15,6 @@ class SearchBar extends Component {
   state = {
     radioValue: '',
     inputValue: '',
-    APIresponse: [],
   };
 
   handleChange = ({ target }) => {
@@ -25,48 +26,49 @@ class SearchBar extends Component {
 
   handleMealsSearchClick = async () => {
     const { radioValue, inputValue } = this.state;
+    const { dispatch } = this.props;
 
     if (radioValue === firstLetterString && inputValue.length > 1) {
       global.alert('Your search must have only 1 (one) character');
     }
     if (radioValue === 'Ingredient') {
       const ingredients = await ingredientFetch(inputValue);
-      this.setState({ APIresponse: ingredients });
+      dispatch(getRecipes(ingredients));
     }
     if (radioValue === 'Name') {
       const names = await nameFetch(inputValue);
-      this.setState({ APIresponse: names });
+      dispatch(getRecipes(names));
     }
     if (radioValue === firstLetterString) {
-      const firstLetters = await firstLetterFetch(inputValue);
-      this.setState({ APIresponse: firstLetters });
+      const firstLetter = await firstLetterFetch(inputValue);
+      dispatch(getRecipes(firstLetter));
     }
   };
 
   handleDrinksSearchClick = async () => {
     const { radioValue, inputValue } = this.state;
+    const { dispatch } = this.props;
 
     if (radioValue === firstLetterString && inputValue.length > 1) {
       global.alert('Your search must have only 1 (one) character');
     }
     if (radioValue === 'Ingredient') {
       const ingredients = await drinkIngredientFetch(inputValue);
-      this.setState({ APIresponse: ingredients });
+      dispatch(getRecipes(ingredients));
     }
     if (radioValue === 'Name') {
       const names = await drinkNameFetch(inputValue);
-      this.setState({ APIresponse: names });
+      dispatch(getRecipes(names));
     }
     if (radioValue === firstLetterString) {
-      const firstLetters = await drinkFirstLetterFetch(inputValue);
-      this.setState({ APIresponse: firstLetters });
+      const firstLetter = await drinkFirstLetterFetch(inputValue);
+      dispatch(getRecipes(firstLetter));
     }
   };
 
   render() {
-    const { inputValue, APIresponse } = this.state;
+    const { inputValue } = this.state;
     const { title } = this.props;
-    console.log(APIresponse);
     return (
       <section>
         <div className="search-container">
@@ -129,4 +131,4 @@ class SearchBar extends Component {
 
 SearchBar.propTypes = {}.isRequired;
 
-export default SearchBar;
+export default connect()(SearchBar);
