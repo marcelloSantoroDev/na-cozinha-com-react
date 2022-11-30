@@ -5,6 +5,7 @@ import Header from '../components/Header';
 class Recipes extends Component {
   render() {
     const { history: { location: { pathname } } } = this.props;
+
     return (
       <Header
         showSearch
