@@ -39,7 +39,7 @@ class Header extends Component {
         <h1 data-testid="page-title">
           { title }
         </h1>
-        {showSearchInput && <SearchBar />}
+        {showSearchInput && <SearchBar title={ title } />}
       </header>
     );
   }
