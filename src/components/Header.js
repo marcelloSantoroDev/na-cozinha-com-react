@@ -3,10 +3,20 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
+import Search from './Search';
 
 class Header extends Component {
+  state = {
+    showSearchInput: false,
+  };
+
+  handleSearchInput = () => {
+    this.setState((prev) => ({ showSearchInput: prev.showSearchInput === false }));
+  };
+
   render() {
     const { showSearch, title } = this.props;
+    const { showSearchInput } = this.state;
     return (
       <header>
         <Link
@@ -18,14 +28,17 @@ class Header extends Component {
             data-testid="profile-top-btn"
           />
         </Link>
-        { showSearch && <img
-          src={ searchIcon }
-          alt="search icon"
-          data-testid="search-top-btn"
-        />}
+        <button type="button" onClick={ this.handleSearchInput }>
+          { showSearch && <img
+            src={ searchIcon }
+            alt="search icon"
+            data-testid="search-top-btn"
+          />}
+        </button>
         <h1 data-testid="page-title">
           { title }
         </h1>
+        {showSearchInput && <Search />}
       </header>
     );
   }
