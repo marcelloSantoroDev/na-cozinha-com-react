@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import Footer from '../components/Footer';
 import Header from '../components/Header';
 
 class Recipes extends Component {
@@ -7,11 +8,14 @@ class Recipes extends Component {
     const { history: { location: { pathname } } } = this.props;
 
     return (
-      <Header
-        showSearch
-        // isso aqui abaixo pode mudar ;)
-        title={ pathname === '/meals' ? 'Meals' : 'Drinks' }
-      />
+      <>
+        <Header
+          showSearch
+          // isso aqui abaixo pode mudar ;)
+          title={ pathname === '/meals' ? 'Meals' : 'Drinks' }
+        />
+        <Footer />
+      </>
     );
   }
 }
