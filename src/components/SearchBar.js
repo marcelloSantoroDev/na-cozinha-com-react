@@ -17,6 +17,10 @@ class SearchBar extends Component {
 
   handleSearchClick = async () => {
     const { radioValue, inputValue } = this.state;
+
+    if (radioValue === 'First Letter' && inputValue.length > 1) {
+      global.alert('Your search must have only 1 (one) character');
+    }
     if (radioValue === 'Ingredient') {
       const ingredients = await ingredientFetch(inputValue);
       this.setState({ APIresponse: ingredients });
@@ -35,56 +39,60 @@ class SearchBar extends Component {
     const { inputValue, APIresponse } = this.state;
     console.log(APIresponse);
     return (
-      <div>
-        <input
-          type="text"
-          data-testid="search-input"
-          name="inputValue"
-          value={ inputValue }
-          onChange={ this.handleChange }
-        />
-        <label htmlFor="Ingredient">
-          Ingredient
+      <section>
+        <div className="search-container">
           <input
-            data-testid="ingredient-search-radio"
-            type="radio"
-            name="radioValue"
-            value="Ingredient"
-            id="Ingredient"
+            type="text"
+            data-testid="search-input"
+            name="inputValue"
+            value={ inputValue }
             onChange={ this.handleChange }
           />
-        </label>
-        <label htmlFor="Name">
-          Name
-          <input
-            data-testid="name-search-radio"
-            type="radio"
-            name="radioValue"
-            value="Name"
-            id="Name"
-            onChange={ this.handleChange }
-          />
-        </label>
-        <label htmlFor="First Letter">
-          First Letter
-          <input
-            data-testid="first-letter-search-radio"
-            type="radio"
-            name="radioValue"
-            value="First Letter"
-            id="First Letter"
-            onChange={ this.handleChange }
-          />
-        </label>
-        <button
-          onClick={ this.handleSearchClick }
-          data-testid="exec-search-btn"
-          type="button"
-        >
-          Search
+          <button
+            onClick={ this.handleSearchClick }
+            data-testid="exec-search-btn"
+            type="button"
+          >
+            Search
 
-        </button>
-      </div>
+          </button>
+        </div>
+        <div className="radios-container">
+          <label htmlFor="Ingredient">
+            Ingredient
+            <input
+              data-testid="ingredient-search-radio"
+              type="radio"
+              name="radioValue"
+              value="Ingredient"
+              id="Ingredient"
+              onChange={ this.handleChange }
+            />
+          </label>
+          <label htmlFor="Name">
+            Name
+            <input
+              data-testid="name-search-radio"
+              type="radio"
+              name="radioValue"
+              value="Name"
+              id="Name"
+              onChange={ this.handleChange }
+            />
+          </label>
+          <label htmlFor="First Letter">
+            First Letter
+            <input
+              data-testid="first-letter-search-radio"
+              type="radio"
+              name="radioValue"
+              value="First Letter"
+              id="First Letter"
+              onChange={ this.handleChange }
+            />
+          </label>
+        </div>
+      </section>
     );
   }
 }
