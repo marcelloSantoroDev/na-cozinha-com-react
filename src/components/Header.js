@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
-import Search from './SearchBar';
+import SearchBar from './SearchBar';
 
 class Header extends Component {
   state = {
@@ -38,7 +38,7 @@ class Header extends Component {
         <h1 data-testid="page-title">
           { title }
         </h1>
-        {showSearchInput && <Search />}
+        {showSearchInput && <SearchBar />}
       </header>
     );
   }
