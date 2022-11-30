@@ -5,11 +5,6 @@ import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 
 class Header extends Component {
-  // handleProfileButton = () => {
-  //   const { history } = this.props;
-  //   history.push('/profile');
-  // };
-
   render() {
     const { showSearch, title } = this.props;
     return (
