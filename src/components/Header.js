@@ -28,13 +28,14 @@ class Header extends Component {
             data-testid="profile-top-btn"
           />
         </Link>
-        <button type="button" onClick={ this.handleSearchInput }>
-          { showSearch && <img
-            src={ searchIcon }
-            alt="search icon"
-            data-testid="search-top-btn"
-          />}
-        </button>
+        { showSearch && (
+          <button type="button" onClick={ this.handleSearchInput }>
+            <img
+              src={ searchIcon }
+              alt="search icon"
+              data-testid="search-top-btn"
+            />
+          </button>)}
         <h1 data-testid="page-title">
           { title }
         </h1>
