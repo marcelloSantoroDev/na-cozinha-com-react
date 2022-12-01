@@ -7,6 +7,7 @@ import RecipeCard from '../components/RecipeCard';
 class Recipes extends Component {
   render() {
     const { history: { location: { pathname } } } = this.props;
+    const { history } = this.props;
     const { recipes } = this.props;
     const TWELVE = 12;
     return (
@@ -14,6 +15,7 @@ class Recipes extends Component {
         <Header
           showSearch
           // isso aqui abaixo pode mudar ;)
+          history={ history }
           title={ pathname === '/meals' ? 'Meals' : 'Drinks' }
         />
         <section className="card-container">

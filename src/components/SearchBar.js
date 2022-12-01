@@ -26,44 +26,52 @@ class SearchBar extends Component {
 
   handleMealsSearchClick = async () => {
     const { radioValue, inputValue } = this.state;
-    const { dispatch } = this.props;
+    const { dispatch, history } = this.props;
+
+    let recipeToDispatch = [];
 
     if (radioValue === firstLetterString && inputValue.length > 1) {
       global.alert('Your search must have only 1 (one) character');
     }
     if (radioValue === 'Ingredient') {
-      const ingredients = await ingredientFetch(inputValue);
-      dispatch(getRecipes(ingredients));
+      recipeToDispatch = await ingredientFetch(inputValue);
     }
     if (radioValue === 'Name') {
-      const names = await nameFetch(inputValue);
-      dispatch(getRecipes(names));
+      recipeToDispatch = await nameFetch(inputValue);
     }
     if (radioValue === firstLetterString) {
-      const firstLetter = await firstLetterFetch(inputValue);
-      dispatch(getRecipes(firstLetter));
+      recipeToDispatch = await firstLetterFetch(inputValue);
     }
+    if (recipeToDispatch.length === 1) {
+      const id = recipeToDispatch[0].idMeal;
+      history.push(`/meals/${id}`);
+    }
+    dispatch(getRecipes(recipeToDispatch));
   };
 
   handleDrinksSearchClick = async () => {
     const { radioValue, inputValue } = this.state;
-    const { dispatch } = this.props;
+    const { dispatch, history } = this.props;
+
+    let recipeToDispatch = [];
 
     if (radioValue === firstLetterString && inputValue.length > 1) {
       global.alert('Your search must have only 1 (one) character');
     }
     if (radioValue === 'Ingredient') {
-      const ingredients = await drinkIngredientFetch(inputValue);
-      dispatch(getRecipes(ingredients));
+      recipeToDispatch = await drinkIngredientFetch(inputValue);
     }
     if (radioValue === 'Name') {
-      const names = await drinkNameFetch(inputValue);
-      dispatch(getRecipes(names));
+      recipeToDispatch = await drinkNameFetch(inputValue);
     }
     if (radioValue === firstLetterString) {
-      const firstLetter = await drinkFirstLetterFetch(inputValue);
-      dispatch(getRecipes(firstLetter));
+      recipeToDispatch = await drinkFirstLetterFetch(inputValue);
     }
+    if (recipeToDispatch.length === 1) {
+      const id = recipeToDispatch[0].idDrink;
+      history.push(`/drinks/${id}`);
+    }
+    dispatch(getRecipes(recipeToDispatch));
   };
 
   render() {
@@ -132,3 +140,12 @@ class SearchBar extends Component {
 SearchBar.propTypes = {}.isRequired;
 
 export default connect()(SearchBar);
+
+// componentDidUpdate() {
+//   const { recipes } = this.props;
+//   const { history: { location: { pathname } } } = this.props;
+//   if (recipes.length === 1) {
+//     const id = pathname === '/meals' ? recipes.idMeal : recipes.idDrink;
+//     history.push(`${pathname}/${id}`);
+//   }
+// }
