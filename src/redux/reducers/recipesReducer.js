@@ -1,7 +1,8 @@
-import { GET_RECIPES } from '../actions';
+import { GET_RECIPES, GET_CATEGORIES } from '../actions';
 
 const INITIAL_STATE = {
   recipes: [],
+  categories: [],
 };
 
 const getRecipesReducer = (state = INITIAL_STATE, action) => {
@@ -10,6 +11,11 @@ const getRecipesReducer = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       recipes: action.recipes,
+    };
+  case GET_CATEGORIES:
+    return {
+      ...state,
+      categories: action.categories,
     };
   default:
     return state;

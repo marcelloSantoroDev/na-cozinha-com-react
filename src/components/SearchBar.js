@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { getRecipes } from '../redux/actions';
 import {
   drinkFirstLetterFetch, drinkIngredientFetch, drinkNameFetch, firstLetterFetch,
-  ingredientFetch, nameFetch
+  ingredientFetch, nameFetch,
 } from '../services/SearchBarFetch';
 
 const firstLetterString = 'First Letter';
