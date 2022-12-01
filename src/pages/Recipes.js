@@ -19,8 +19,8 @@ class Recipes extends Component {
           title={ pathname === '/meals' ? 'Meals' : 'Drinks' }
         />
         <section className="card-container">
-          {
-            recipes.filter((_e, i) => i < TWELVE).map((recipe, index) => (
+          { recipes !== null
+            && recipes.filter((_e, i) => i < TWELVE).map((recipe, index) => (
               <RecipeCard
                 key={ pathname === '/meals' ? recipe.idMeal : recipe.idDrink }
                 thumb={ pathname === '/meals' ? recipe.strMealThumb
@@ -31,8 +31,7 @@ class Recipes extends Component {
                 pathname={ pathname }
                 index={ index }
               />
-            ))
-          }
+            ))}
         </section>
         <Footer />
       </>

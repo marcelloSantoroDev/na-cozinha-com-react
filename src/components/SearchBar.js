@@ -42,7 +42,9 @@ class SearchBar extends Component {
     if (radioValue === firstLetterString) {
       recipeToDispatch = await firstLetterFetch(inputValue);
     }
-    if (recipeToDispatch.length === 1) {
+    if (recipeToDispatch === null) {
+      global.alert('Sorry, we haven\'t found any recipes for these filters.');
+    } else if (recipeToDispatch.length === 1) {
       const id = recipeToDispatch[0].idMeal;
       history.push(`/meals/${id}`);
     }
@@ -67,7 +69,9 @@ class SearchBar extends Component {
     if (radioValue === firstLetterString) {
       recipeToDispatch = await drinkFirstLetterFetch(inputValue);
     }
-    if (recipeToDispatch.length === 1) {
+    if (recipeToDispatch === null) {
+      global.alert('Sorry, we haven\'t found any recipes for these filters.');
+    } else if (recipeToDispatch.length === 1) {
       const id = recipeToDispatch[0].idDrink;
       history.push(`/drinks/${id}`);
     }
