@@ -1,14 +1,26 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import RecipeCard from '../components/RecipeCard';
+import { thunkToRenderDrinksRecipes, thunkToRenderMealsRecipes } from '../redux/actions';
 
 function Recipes() {
   const location = useLocation();
+  const dispatch = useDispatch();
   const recipes = useSelector((state) => state.getRecipesReducer.recipes);
   const TWELVE = 12;
+
+  useEffect(() => {
+    const { pathname } = location;
+    if (pathname === '/meals') {
+      dispatch(thunkToRenderMealsRecipes());
+    } else {
+      dispatch(thunkToRenderDrinksRecipes());
+    }
+  }, [dispatch, location]);
+
   return (
     <>
       <Header
