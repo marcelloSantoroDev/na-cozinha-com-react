@@ -1,14 +1,12 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Header from '../components/Header';
 
-class FavoriteRecipes extends Component {
-  render() {
-    return (
-      <Header
-        title="Favorite Recipes"
-      />
-    );
-  }
+function FavoriteRecipes() {
+  return (
+    <Header
+      title="Favorite Recipes"
+    />
+  );
 }
 
 export default FavoriteRecipes;

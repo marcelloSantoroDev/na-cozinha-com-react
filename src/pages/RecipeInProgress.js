@@ -1,11 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-class RecipeInProgress extends Component {
-  render() {
-    return (
-      <div>RecipeInProgress</div>
-    );
-  }
+function RecipeInProgress() {
+  return (
+    <div>RecipeInProgress</div>
+  );
 }
 
 export default RecipeInProgress;
