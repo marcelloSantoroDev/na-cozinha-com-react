@@ -1,14 +1,11 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { ingredientFetch,
-  nameFetch,
-  firstLetterFetch,
-  drinkIngredientFetch,
-  drinkNameFetch,
-  drinkFirstLetterFetch,
-} from '../services/SearchBarFetch';
 import { getRecipes } from '../redux/actions';
+import {
+  drinkFirstLetterFetch, drinkIngredientFetch, drinkNameFetch, firstLetterFetch,
+  ingredientFetch, nameFetch
+} from '../services/SearchBarFetch';
 
 const firstLetterString = 'First Letter';
 
@@ -105,7 +102,6 @@ function SearchBar(props) {
       </div>
       <div className="radios-container">
         <label htmlFor="Ingredient">
-          Ingredient
           <input
             data-testid="ingredient-search-radio"
             type="radio"
@@ -114,9 +110,9 @@ function SearchBar(props) {
             id="Ingredient"
             onChange={ handleChange }
           />
+          Ingredient
         </label>
         <label htmlFor="Name">
-          Name
           <input
             data-testid="name-search-radio"
             type="radio"
@@ -125,9 +121,9 @@ function SearchBar(props) {
             id="Name"
             onChange={ handleChange }
           />
+          Name
         </label>
         <label htmlFor="First Letter">
-          First Letter
           <input
             data-testid="first-letter-search-radio"
             type="radio"
@@ -136,6 +132,7 @@ function SearchBar(props) {
             id="First Letter"
             onChange={ handleChange }
           />
+          First Letter
         </label>
       </div>
     </section>

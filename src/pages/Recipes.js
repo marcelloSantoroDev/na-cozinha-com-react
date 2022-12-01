@@ -5,6 +5,7 @@ import Footer from '../components/Footer';
 import Header from '../components/Header';
 import RecipeCard from '../components/RecipeCard';
 import { thunkToRenderDrinksRecipes, thunkToRenderMealsRecipes } from '../redux/actions';
+import './css/Recipes.css';
 
 function Recipes() {
   const location = useLocation();
@@ -27,7 +28,7 @@ function Recipes() {
         showSearch
         title={ location.pathname === '/meals' ? 'Meals' : 'Drinks' }
       />
-      <section className="card-container">
+      <section className="cards-container">
         { recipes !== null
             && recipes?.filter((_e, i) => i < TWELVE).map((recipe, index) => (
               <RecipeCard

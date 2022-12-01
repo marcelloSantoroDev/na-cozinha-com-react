@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import './css/RecipeCard.css';
 
 function RecipeCard(props) {
   const { pathname } = useLocation();
@@ -14,15 +15,17 @@ function RecipeCard(props) {
       to={ `${pathname}/${id}` }
       data-testid={ `${index}-recipe-card` }
     >
-      <img
-        src={ thumb }
-        alt={ `${recipeName} img` }
-        width="300px"
-        data-testid={ `${index}-card-img` }
-      />
-      <span data-testid={ `${index}-card-name` }>
-        {recipeName}
-      </span>
+      <div className="card">
+        <img
+          src={ thumb }
+          alt={ `${recipeName} img` }
+          width="300px"
+          data-testid={ `${index}-card-img` }
+        />
+        <span data-testid={ `${index}-card-name` }>
+          {recipeName}
+        </span>
+      </div>
     </Link>
   );
 }
