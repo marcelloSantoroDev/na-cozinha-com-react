@@ -1,48 +1,35 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import RecipeCard from '../components/RecipeCard';
 
-class Recipes extends Component {
-  render() {
-    const { history: { location: { pathname } } } = this.props;
-    const { history } = this.props;
-    const { recipes } = this.props;
-    const TWELVE = 12;
-    return (
-      <>
-        <Header
-          showSearch
-          // isso aqui abaixo pode mudar ;)
-          history={ history }
-          title={ pathname === '/meals' ? 'Meals' : 'Drinks' }
-        />
-        <section className="card-container">
-          { recipes !== null
+function Recipes() {
+  const location = useLocation();
+  const recipes = useSelector((state) => state.getRecipesReducer.recipes);
+  const TWELVE = 12;
+  return (
+    <>
+      <Header
+        showSearch
+        title={ location.pathname === '/meals' ? 'Meals' : 'Drinks' }
+      />
+      <section className="card-container">
+        { recipes !== null
             && recipes.filter((_e, i) => i < TWELVE).map((recipe, index) => (
               <RecipeCard
-                key={ pathname === '/meals' ? recipe.idMeal : recipe.idDrink }
-                thumb={ pathname === '/meals' ? recipe.strMealThumb
-                  : recipe.strDrinkThumb }
-                recipeName={ pathname === '/meals' ? recipe.strMeal
-                  : recipe.strDrink }
-                id={ pathname === '/meals' ? recipe.idMeal : recipe.idDrink }
-                pathname={ pathname }
+                key={ location.pathname === '/meals' ? recipe.idMeal : recipe.idDrink }
                 index={ index }
+                recipe={ recipe }
               />
             ))}
-        </section>
-        <Footer />
-      </>
-    );
-  }
+      </section>
+      <Footer />
+    </>
+  );
 }
 
 Recipes.propTypes = {}.isRequired;
 
-const mapStateToProps = (state) => ({
-  recipes: state.getRecipesReducer.recipes,
-});
-
-export default connect(mapStateToProps)(Recipes);
+export default Recipes;

@@ -1,5 +1,6 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { ingredientFetch,
   nameFetch,
   firstLetterFetch,
@@ -11,22 +12,25 @@ import { getRecipes } from '../redux/actions';
 
 const firstLetterString = 'First Letter';
 
-class SearchBar extends Component {
-  state = {
+function SearchBar(props) {
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+  const [inputs, setInputs] = useState({
     radioValue: '',
     inputValue: '',
-  };
+  });
 
-  handleChange = ({ target }) => {
+  const handleChange = ({ target }) => {
     const { value, name } = target;
-    this.setState({
+    setInputs({
+      ...inputs,
       [name]: value,
     });
   };
 
-  handleMealsSearchClick = async () => {
-    const { radioValue, inputValue } = this.state;
-    const { dispatch, history } = this.props;
+  const handleMealsSearchClick = async () => {
+    const { radioValue, inputValue } = inputs;
 
     let recipeToDispatch = [];
 
@@ -51,9 +55,8 @@ class SearchBar extends Component {
     dispatch(getRecipes(recipeToDispatch));
   };
 
-  handleDrinksSearchClick = async () => {
-    const { radioValue, inputValue } = this.state;
-    const { dispatch, history } = this.props;
+  const handleDrinksSearchClick = async () => {
+    const { radioValue, inputValue } = inputs;
 
     let recipeToDispatch = [];
 
@@ -78,78 +81,67 @@ class SearchBar extends Component {
     dispatch(getRecipes(recipeToDispatch));
   };
 
-  render() {
-    const { inputValue } = this.state;
-    const { title } = this.props;
-    return (
-      <section>
-        <div className="search-container">
-          <input
-            type="text"
-            data-testid="search-input"
-            name="inputValue"
-            value={ inputValue }
-            onChange={ this.handleChange }
-          />
-          <button
-            onClick={ title === 'Meals'
-              ? this.handleMealsSearchClick : this.handleDrinksSearchClick }
-            data-testid="exec-search-btn"
-            type="button"
-          >
-            Search
+  const { inputValue } = inputs;
+  const { title } = props;
+  return (
+    <section>
+      <div className="search-container">
+        <input
+          type="text"
+          data-testid="search-input"
+          name="inputValue"
+          value={ inputValue }
+          onChange={ handleChange }
+        />
+        <button
+          onClick={ title === 'Meals'
+            ? handleMealsSearchClick : handleDrinksSearchClick }
+          data-testid="exec-search-btn"
+          type="button"
+        >
+          Search
 
-          </button>
-        </div>
-        <div className="radios-container">
-          <label htmlFor="Ingredient">
-            Ingredient
-            <input
-              data-testid="ingredient-search-radio"
-              type="radio"
-              name="radioValue"
-              value="Ingredient"
-              id="Ingredient"
-              onChange={ this.handleChange }
-            />
-          </label>
-          <label htmlFor="Name">
-            Name
-            <input
-              data-testid="name-search-radio"
-              type="radio"
-              name="radioValue"
-              value="Name"
-              id="Name"
-              onChange={ this.handleChange }
-            />
-          </label>
-          <label htmlFor="First Letter">
-            First Letter
-            <input
-              data-testid="first-letter-search-radio"
-              type="radio"
-              name="radioValue"
-              value="First Letter"
-              id="First Letter"
-              onChange={ this.handleChange }
-            />
-          </label>
-        </div>
-      </section>
-    );
-  }
+        </button>
+      </div>
+      <div className="radios-container">
+        <label htmlFor="Ingredient">
+          Ingredient
+          <input
+            data-testid="ingredient-search-radio"
+            type="radio"
+            name="radioValue"
+            value="Ingredient"
+            id="Ingredient"
+            onChange={ handleChange }
+          />
+        </label>
+        <label htmlFor="Name">
+          Name
+          <input
+            data-testid="name-search-radio"
+            type="radio"
+            name="radioValue"
+            value="Name"
+            id="Name"
+            onChange={ handleChange }
+          />
+        </label>
+        <label htmlFor="First Letter">
+          First Letter
+          <input
+            data-testid="first-letter-search-radio"
+            type="radio"
+            name="radioValue"
+            value="First Letter"
+            id="First Letter"
+            onChange={ handleChange }
+          />
+        </label>
+      </div>
+    </section>
+  );
 }
 
 SearchBar.propTypes = {}.isRequired;
 
-export default connect()(SearchBar);
-
-// componentDidUpdate() {
-//   const { recipes } = this.props;
-//   const { history: { location: { pathname } } } = this.props;
-//   if (recipes.length === 1) {
-//     const id = pathname === '/meals' ? recipes.idMeal : recipes.idDrink;
-//     history.push(`${pathname}/${id}`);
-//   }
-// }
+export default SearchBar;

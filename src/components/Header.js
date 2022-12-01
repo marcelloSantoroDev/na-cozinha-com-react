@@ -1,50 +1,44 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import SearchBar from './SearchBar';
 
-class Header extends Component {
-  state = {
-    showSearchInput: false,
+function Header(props) {
+  const [showSearchInput, setShowSearchInput] = useState(false);
+
+  const handleSearchInput = () => {
+    setShowSearchInput(!showSearchInput);
   };
 
-  handleSearchInput = () => {
-    this.setState((prev) => ({ showSearchInput: prev.showSearchInput === false }));
-  };
-
-  render() {
-    const { showSearch, title, history } = this.props;
-    const { showSearchInput } = this.state;
-    return (
-      <header>
-        <Link
-          to="/profile"
-        >
+  const { showSearch, title } = props;
+  return (
+    <header>
+      <Link
+        to="/profile"
+      >
+        <img
+          src={ profileIcon }
+          alt="profile icon"
+          data-testid="profile-top-btn"
+        />
+      </Link>
+      { showSearch && (
+        <button type="button" onClick={ handleSearchInput }>
           <img
-            src={ profileIcon }
-            alt="profile icon"
-            data-testid="profile-top-btn"
+            src={ searchIcon }
+            alt="search icon"
+            data-testid="search-top-btn"
           />
-        </Link>
-        { showSearch && (
-          <button type="button" onClick={ this.handleSearchInput }>
-            <img
-              src={ searchIcon }
-              alt="search icon"
-              data-testid="search-top-btn"
-            />
-          </button>)}
-        <h1 data-testid="page-title">
-          { title }
-        </h1>
-        {showSearchInput && <SearchBar title={ title } history={ history } />}
-      </header>
-    );
-  }
+        </button>)}
+      <h1 data-testid="page-title">
+        { title }
+      </h1>
+      {showSearchInput && <SearchBar title={ title } />}
+    </header>
+  );
 }
 
 Header.propTypes = {}.isRequired;
 
-export default connect()(Header);
+export default Header;
