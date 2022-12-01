@@ -15,7 +15,7 @@ class Header extends Component {
   };
 
   render() {
-    const { showSearch, title } = this.props;
+    const { showSearch, title, history } = this.props;
     const { showSearchInput } = this.state;
     return (
       <header>
@@ -39,7 +39,7 @@ class Header extends Component {
         <h1 data-testid="page-title">
           { title }
         </h1>
-        {showSearchInput && <SearchBar title={ title } />}
+        {showSearchInput && <SearchBar title={ title } history={ history } />}
       </header>
     );
   }
