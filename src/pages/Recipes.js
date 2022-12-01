@@ -29,7 +29,7 @@ function Recipes() {
       />
       <section className="card-container">
         { recipes !== null
-            && recipes.filter((_e, i) => i < TWELVE).map((recipe, index) => (
+            && recipes?.filter((_e, i) => i < TWELVE).map((recipe, index) => (
               <RecipeCard
                 key={ location.pathname === '/meals' ? recipe.idMeal : recipe.idDrink }
                 index={ index }
