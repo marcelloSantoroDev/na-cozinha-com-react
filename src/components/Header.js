@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
+import './css/Header.css';
 import SearchBar from './SearchBar';
 
 function Header(props) {
@@ -14,23 +15,25 @@ function Header(props) {
   const { showSearch, title } = props;
   return (
     <header>
-      <Link
-        to="/profile"
-      >
-        <img
-          src={ profileIcon }
-          alt="profile icon"
-          data-testid="profile-top-btn"
-        />
-      </Link>
-      { showSearch && (
-        <button type="button" onClick={ handleSearchInput }>
+      <div className="main-header">
+        <Link
+          to="/profile"
+        >
           <img
-            src={ searchIcon }
-            alt="search icon"
-            data-testid="search-top-btn"
+            src={ profileIcon }
+            alt="profile icon"
+            data-testid="profile-top-btn"
           />
-        </button>)}
+        </Link>
+        { showSearch && (
+          <button className="searchBarButton" type="button" onClick={ handleSearchInput }>
+            <img
+              src={ searchIcon }
+              alt="search icon"
+              data-testid="search-top-btn"
+            />
+          </button>)}
+      </div>
       <h1 data-testid="page-title">
         { title }
       </h1>

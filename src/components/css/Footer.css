@@ -1,7 +1,15 @@
 footer {
+  background-color: white;
   bottom: 0;
   display: flex;
+  height: 52px;
   justify-content: center;
   position: fixed;
   width: 100%;
+}
+
+footer img {
+  padding: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
 }
