@@ -1,23 +1,30 @@
 import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { act } from 'react-dom/test-utils';
 import App from '../App';
 import { renderWithRouterAndRedux } from './helpers/renderWith';
-import mock from '../../cypress/mocks/mealsByIngredient';
 
-describe('testes de SearchBar', () => {
-  const stringInput = 'search-input';
-  const stringSearch = 'exec-search-btn';
+const stringInput = 'search-input';
+const stringSearch = 'exec-search-btn';
 
+describe('testes de meals', () => {
   test('1', async () => {
     const { history } = renderWithRouterAndRedux(<App />);
-    history.push('/meals');
+    act(() => {
+      history.push('/meals');
+    });
+
     expect(history.location.pathname).toBe('/meals');
 
     expect(await screen.findByRole('heading', { level: 1, name: 'Meals' })).toBeInTheDocument();
   });
+
   test('2', async () => {
     const { history } = renderWithRouterAndRedux(<App />);
-    await history.push('/meals');
+    act(() => {
+      history.push('/meals');
+    });
+
     expect(history.location.pathname).toBe('/meals');
 
     const buttonSearchBar = await screen.findByRole('img', { name: /search icon/i });
@@ -37,9 +44,13 @@ describe('testes de SearchBar', () => {
     const recipe = await screen.findByText(/egg drop soup/i);
     expect(recipe).toBeInTheDocument();
   });
+
   test('3', async () => {
     const { history } = renderWithRouterAndRedux(<App />);
-    await history.push('/meals');
+    act(() => {
+      history.push('/meals');
+    });
+
     expect(history.location.pathname).toBe('/meals');
 
     const buttonSearchBar = await screen.findByRole('img', { name: /search icon/i });
@@ -59,9 +70,13 @@ describe('testes de SearchBar', () => {
     const recipe = await screen.findByText(/beef lo mein/i);
     expect(recipe).toBeInTheDocument();
   });
+
   test('4', async () => {
     const { history } = renderWithRouterAndRedux(<App />);
-    await history.push('/meals');
+    act(() => {
+      history.push('/meals');
+    });
+
     expect(history.location.pathname).toBe('/meals');
 
     const buttonSearchBar = await screen.findByRole('img', { name: /search icon/i });
@@ -81,10 +96,13 @@ describe('testes de SearchBar', () => {
     const recipe = await screen.findByText(/Eton Mess/i);
     expect(recipe).toBeInTheDocument();
   });
+
   test('5', async () => {
     global.alert = jest.fn(() => {});
     const { history } = renderWithRouterAndRedux(<App />);
-    await history.push('/meals');
+    act(() => {
+      history.push('/meals');
+    });
     expect(history.location.pathname).toBe('/meals');
 
     const buttonSearchBar = await screen.findByRole('img', { name: /search icon/i });
@@ -101,11 +119,17 @@ describe('testes de SearchBar', () => {
     const buttonSearch = await screen.findByTestId(stringSearch);
     userEvent.click(buttonSearch);
 
-    expect(await global.alert).toHaveBeenCalled();
+    await waitFor(() => {
+      expect(global.alert).toHaveBeenCalled();
+    });
   });
+
   test('6', async () => {
     const { history } = renderWithRouterAndRedux(<App />);
-    await history.push('/meals');
+    act(() => {
+      history.push('/meals');
+    });
+
     expect(history.location.pathname).toBe('/meals');
 
     const buttonSearchBar = await screen.findByRole('img', { name: /search icon/i });
@@ -113,7 +137,7 @@ describe('testes de SearchBar', () => {
 
     const inputSearch = await screen.findByTestId(stringInput);
     expect(inputSearch).toBeInTheDocument();
-    userEvent.type(inputSearch, /Arrabiata/i);
+    userEvent.type(inputSearch, 'Arrabiata');
 
     const buttonRadioName = await screen.findByRole('radio', { name: /name/i });
     expect(buttonRadioName).toBeInTheDocument();
@@ -127,8 +151,35 @@ describe('testes de SearchBar', () => {
   });
 
   test('7', async () => {
+    global.alert = jest.fn(() => {});
     const { history } = renderWithRouterAndRedux(<App />);
-    await history.push('/drinks');
+    act(() => {
+      history.push('/meals');
+    });
+
+    expect(history.location.pathname).toBe('/meals');
+
+    const buttonSearchBar = await screen.findByRole('img', { name: /search icon/i });
+    userEvent.click(buttonSearchBar);
+
+    const inputSearch = await screen.findByTestId(stringInput);
+    expect(inputSearch).toBeInTheDocument();
+    userEvent.type(inputSearch, 'fetuccine');
+
+    const buttonRadioName = await screen.findByRole('radio', { name: /name/i });
+    userEvent.click(buttonRadioName);
+    await waitFor(() => {
+      expect(global.alert).toHaveBeenCalled();
+    });
+  });
+});
+
+describe('testes de drinks', () => {
+  test('7', async () => {
+    const { history } = renderWithRouterAndRedux(<App />);
+    act(() => {
+      history.push('/drinks');
+    });
     expect(history.location.pathname).toBe('/drinks');
 
     const buttonSearchBar = await screen.findByRole('img', { name: /search icon/i });
@@ -145,12 +196,16 @@ describe('testes de SearchBar', () => {
     const buttonSearch = await screen.findByTestId(stringSearch);
     userEvent.click(buttonSearch);
 
-    const recipe = await screen.findByText(/sherry flip/i);
+    const recipe = await screen.findByText('Sherry Flip');
     expect(recipe).toBeInTheDocument();
   });
+
   test('8', async () => {
     const { history } = renderWithRouterAndRedux(<App />);
-    await history.push('/drinks');
+    act(() => {
+      history.push('/drinks');
+    });
+
     expect(history.location.pathname).toBe('/drinks');
 
     const buttonSearchBar = await screen.findByRole('img', { name: /search icon/i });
@@ -167,12 +222,16 @@ describe('testes de SearchBar', () => {
     const buttonSearch = await screen.findByTestId(stringSearch);
     userEvent.click(buttonSearch);
 
-    const recipe = await screen.findByText(/Adonis Cocktail/i);
+    const recipe = await screen.findByText('Adonis Cocktail');
     expect(recipe).toBeInTheDocument();
   });
+
   test('9', async () => {
     const { history } = renderWithRouterAndRedux(<App />);
-    await history.push('/drinks');
+    act(() => {
+      history.push('/drinks');
+    });
+
     expect(history.location.pathname).toBe('/drinks');
 
     const buttonSearchBar = await screen.findByRole('img', { name: /search icon/i });
@@ -189,13 +248,17 @@ describe('testes de SearchBar', () => {
     const buttonSearch = await screen.findByTestId(stringSearch);
     userEvent.click(buttonSearch);
 
-    const recipe = await screen.findByText(/Egg Cream/i);
+    const recipe = await screen.findByText('Egg Cream');
     expect(recipe).toBeInTheDocument();
   });
+
   test('10', async () => {
     global.alert = jest.fn(() => {});
     const { history } = renderWithRouterAndRedux(<App />);
-    await history.push('/drinks');
+    act(() => {
+      history.push('/drinks');
+    });
+
     expect(history.location.pathname).toBe('/drinks');
 
     const buttonSearchBar = await screen.findByRole('img', { name: /search icon/i });
@@ -212,32 +275,32 @@ describe('testes de SearchBar', () => {
     const buttonSearch = await screen.findByTestId(stringSearch);
     userEvent.click(buttonSearch);
 
-    expect(await global.alert).toHaveBeenCalled();
+    await waitFor(() => {
+      expect(global.alert).toHaveBeenCalled();
+    });
   });
+
   test('11', async () => {
     global.alert = jest.fn(() => {});
-    jest.spyOn(global, 'fetch');
-    global.fetch.mockResolvedValue({
-      json: jest.fn().mockResolvedValue(mock),
-    });
 
     const { history } = renderWithRouterAndRedux(<App />);
-    await history.push('/meals');
+    act(() => {
+      history.push('/meals');
+    });
+
     expect(history.location.pathname).toBe('/meals');
-
     const buttonSearchBar = await screen.findByRole('img', { name: /search icon/i });
-    userEvent.click(buttonSearchBar);
-
     const inputSearch = await screen.findByTestId(stringInput);
-    expect(inputSearch).toBeInTheDocument();
-    userEvent.type(inputSearch, 'queCoisaNao');
-
     const buttonRadioName = await screen.findByRole('radio', { name: /name/i });
-    expect(buttonRadioName).toBeInTheDocument();
-    userEvent.click(buttonRadioName);
-
     const buttonSearch = await screen.findByTestId(stringSearch);
+
+    userEvent.click(buttonSearchBar);
+    userEvent.type(inputSearch, 'lalala');
+    userEvent.click(buttonRadioName);
     userEvent.click(buttonSearch);
-    expect(await global.alert).toHaveBeenCalled();
+
+    await waitFor(() => {
+      expect(global.alert).toHaveBeenCalled();
+    });
   });
 });
