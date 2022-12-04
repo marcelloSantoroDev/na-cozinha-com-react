@@ -2,6 +2,7 @@ export const GET_EMAIL = 'GET_EMAIL';
 export const GET_RECIPES = 'GET_RECIPES';
 export const GET_CATEGORIES = 'GET_CATEGORIES';
 export const GET_RECIPE_DETAILS = 'GET_RECIPE_DETAILS';
+export const GET_RECOMENDATIONS = 'GET_RECOMENDATIONS';
 
 export const getEmail = (userEmail) => ({
   type: GET_EMAIL,
@@ -21,6 +22,11 @@ export const getCategories = (categories) => ({
 export const getRecipeDetails = (details) => ({
   type: GET_RECIPE_DETAILS,
   details,
+});
+
+export const getRecomendations = (recomendations) => ({
+  type: GET_RECOMENDATIONS,
+  recomendations,
 });
 
 export const thunkToRenderMealsRecipes = () => async (dispatch) => {
@@ -106,6 +112,28 @@ export const thunkToDrinkDetails = (id) => async (dispatch) => {
     const request = await fetch(url);
     const { drinks } = await request.json();
     dispatch(getRecipeDetails(drinks));
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+export const thunkToMealRecomendations = () => async (dispatch) => {
+  try {
+    const url = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+    const request = await fetch(url);
+    const { meals } = await request.json();
+    dispatch(getRecomendations(meals));
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+export const thunkToDrinkRecomendations = () => async (dispatch) => {
+  try {
+    const url = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+    const request = await fetch(url);
+    const { drinks } = await request.json();
+    dispatch(getRecomendations(drinks));
   } catch (error) {
     throw new Error(error);
   }
