@@ -1,9 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { thunkToMealRecomendations } from '../redux/actions';
 
 function DrinkRecipeDetailsCard(props) {
   const { details } = props;
-  console.log(details);
   const { strDrink, strAlcoholic, strDrinkThumb, strInstructions, strCategory } = details;
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(thunkToMealRecomendations());
+  }, [dispatch]);
 
   const { strIngredient1,
     strIngredient2,

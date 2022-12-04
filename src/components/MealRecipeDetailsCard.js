@@ -1,11 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { thunkToDrinkRecomendations } from '../redux/actions';
 
 function RecipeDetailsCard(props) {
   const { details } = props;
   const { strMeal,
     strCategory, strMealThumb, strInstructions, strYoutube } = details;
-
   const embedId = strYoutube.split('=')[1];
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(thunkToDrinkRecomendations());
+  }, [dispatch]);
 
   const { strIngredient1,
     strIngredient2,
