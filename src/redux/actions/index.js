@@ -60,3 +60,25 @@ export const thunkToRenderDrinksCategories = () => async (dispatch) => {
     throw new Error(error);
   }
 };
+
+export const thunkToFilterMealsCategories = (category) => async (dispatch) => {
+  try {
+    const url = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`;
+    const request = await fetch(url);
+    const { meals } = await request.json();
+    dispatch(getRecipes(meals));
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+export const thunkToFilterDrinksCategories = (category) => async (dispatch) => {
+  try {
+    const url = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category}`;
+    const request = await fetch(url);
+    const { drinks } = await request.json();
+    dispatch(getRecipes(drinks));
+  } catch (error) {
+    throw new Error(error);
+  }
+};
