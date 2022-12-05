@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useLocation, useParams } from 'react-router-dom';
 import DrinkRecipeDetailsCard from '../components/DrinkRecipeDetailsCard';
@@ -12,6 +12,14 @@ function RecipeDetails() {
   const dispatch = useDispatch();
   const history = useHistory();
   const recipeDetails = useSelector((state) => state.getRecipesReducer.recipeDetails);
+  const [recipeId, setRecipeId] = useState(false);
+
+  useEffect(() => {
+    const doneRecipes = localStorage.getItem('doneRecipes');
+    if (doneRecipes !== null) {
+      setRecipeId(doneRecipes.id === id);
+    }
+  }, [id]);
 
   useEffect(() => {
     if (pathname === `/meals/${id}`) {
@@ -35,15 +43,16 @@ function RecipeDetails() {
         ))}
       </div>
       <div className="button-container">
-        <button
-          data-testid="start-recipe-btn"
-          type="button"
-          className="start-button"
-          onClick={ handleClick }
-        >
-          Start Recipe
+        { !recipeId && (
+          <button
+            data-testid="start-recipe-btn"
+            type="button"
+            className="start-button"
+            onClick={ handleClick }
+          >
+            Start Recipe
 
-        </button>
+          </button>)}
       </div>
     </section>
   );
