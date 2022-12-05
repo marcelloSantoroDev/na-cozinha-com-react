@@ -118,7 +118,7 @@ function RecipeDetailsCard(props) {
           data-testid="recipe-photo"
           src={ strMealThumb }
           alt={ strMeal }
-          width="200px"
+          width="150px"
         />
         <h2 data-testid="recipe-category">{strCategory}</h2>
         <ul>
