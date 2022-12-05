@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { thunkToDrinkRecomendations } from '../redux/actions';
+import DrinkRecomendationCard from './DrinkRecomendationCard';
+import './css/Recomendations.css';
 
 function RecipeDetailsCard(props) {
   const { details } = props;
@@ -8,6 +10,8 @@ function RecipeDetailsCard(props) {
     strCategory, strMealThumb, strInstructions, strYoutube } = details;
   const embedId = strYoutube.split('=')[1];
   const dispatch = useDispatch();
+  const recomendations = useSelector((state) => state.getRecipesReducer.recomendations);
+  const SIX = 6;
 
   useEffect(() => {
     dispatch(thunkToDrinkRecomendations());
@@ -107,34 +111,48 @@ function RecipeDetailsCard(props) {
   const arrayToMap = filteredIngredients.map((e, i) => `${filteredMeasures[i]} of ${e} `);
 
   return (
-    <div className="meal-details-container">
-      <h1 data-testid="recipe-title">{strMeal}</h1>
-      <img
-        data-testid="recipe-photo"
-        src={ strMealThumb }
-        alt={ strMeal }
-        width="200px"
-      />
-      <h2 data-testid="recipe-category">{strCategory}</h2>
-      <ul>
-        { arrayToMap.map((e, index) => (
-          <li
-            data-testid={ `${index}-ingredient-name-and-measure` }
-            key={ e + index }
-          >
-            {e}
+    <section>
+      <div className="meal-details-container">
+        <h1 data-testid="recipe-title">{strMeal}</h1>
+        <img
+          data-testid="recipe-photo"
+          src={ strMealThumb }
+          alt={ strMeal }
+          width="200px"
+        />
+        <h2 data-testid="recipe-category">{strCategory}</h2>
+        <ul>
+          { arrayToMap.map((e, index) => (
+            <li
+              data-testid={ `${index}-ingredient-name-and-measure` }
+              key={ e + index }
+            >
+              {e}
 
-          </li>
-        )) }
-      </ul>
-      <h3 data-testid="instructions">{strInstructions}</h3>
-      <iframe
-        data-testid="video"
-        title={ strMeal }
-        src={ `https://www.youtube.com/embed/${embedId}` }
-        frameBorder="0"
-      />
-    </div>
+            </li>
+          )) }
+        </ul>
+        <h3 data-testid="instructions">{strInstructions}</h3>
+        <iframe
+          data-testid="video"
+          title={ strMeal }
+          src={ `https://www.youtube.com/embed/${embedId}` }
+          frameBorder="0"
+        />
+
+      </div>
+      <div className="recomendations-container">
+        {recomendations.filter((_e, i) => i < SIX).map((recomendation, index) => (
+          <DrinkRecomendationCard
+            data-testid={ `${index}-recommendation-card` }
+            key={ index }
+            recomendation={ recomendation }
+            index={ index }
+          />
+        ))}
+      </div>
+    </section>
+
   );
 }
 

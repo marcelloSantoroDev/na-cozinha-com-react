@@ -1,0 +1,16 @@
+.recomendations-container {
+  display: flex;
+  gap: 10px;
+  height: 20vh;
+  left: 12px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  width: 90%;
+}
+
+.recomendation-card img {
+  border-radius: 10px;
+  height: 80px;
+  padding: 5px;
+  width: 155px;
+}
