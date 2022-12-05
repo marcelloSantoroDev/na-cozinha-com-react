@@ -46,13 +46,17 @@ function RecipeDetails() {
   return (
 
     <section className="details-section">
+      <div className="share-button-container">
+        <button type="button" data-testid="share-btn">Share</button>
+        <button type="button" data-testid="favorite-btn">Favorite</button>
+      </div>
       <div className="details-card-container">
         {recipeDetails.map((details) => (
           pathname === `/meals/${id}` ? <MealRecipeDetailsCard details={ details } />
             : <DrinkRecipeDetailsCard details={ details } />
         ))}
       </div>
-      <div className="button-container">
+      <div className="start-button-container">
         { !recipeId && (
           <button
             data-testid="start-recipe-btn"
