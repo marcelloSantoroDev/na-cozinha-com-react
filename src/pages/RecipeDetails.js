@@ -13,6 +13,7 @@ function RecipeDetails() {
   const history = useHistory();
   const recipeDetails = useSelector((state) => state.getRecipesReducer.recipeDetails);
   const [recipeId, setRecipeId] = useState(false);
+  const [recipeInProgress, setRecipeInProgress] = useState(false);
 
   useEffect(() => {
     const doneRecipes = localStorage.getItem('doneRecipes');
@@ -20,6 +21,15 @@ function RecipeDetails() {
       setRecipeId(doneRecipes.id === id);
     }
   }, [id]);
+
+  useEffect(() => {
+    const inProgressRecipes = localStorage.getItem('inProgressRecipes');
+    if (inProgressRecipes !== null && inProgressRecipes !== undefined) {
+      setRecipeInProgress(inProgressRecipes.length > 0);
+    }
+  }, [id, pathname]);
+
+  console.log(recipeInProgress);
 
   useEffect(() => {
     if (pathname === `/meals/${id}`) {
@@ -50,7 +60,7 @@ function RecipeDetails() {
             className="start-button"
             onClick={ handleClick }
           >
-            Start Recipe
+            { !recipeInProgress ? 'Start Recipe' : 'Continue Recipe'}
 
           </button>)}
       </div>
