@@ -4,6 +4,7 @@ import { useLocation, useParams } from 'react-router-dom';
 import DrinkRecipeDetailsCard from '../components/DrinkRecipeDetailsCard';
 import MealRecipeDetailsCard from '../components/MealRecipeDetailsCard';
 import { thunkToDrinkDetails, thunkToMealDetails } from '../redux/actions';
+import './css/RecipeDetails.css';
 
 function RecipeDetails() {
   const { id } = useParams();
@@ -20,11 +21,24 @@ function RecipeDetails() {
   }, [dispatch, id, pathname]);
 
   return (
+
     <section className="details-section">
-      {recipeDetails.map((details) => (
-        pathname === `/meals/${id}` ? <MealRecipeDetailsCard details={ details } />
-          : <DrinkRecipeDetailsCard details={ details } />
-      ))}
+      <div className="details-card-container">
+        {recipeDetails.map((details) => (
+          pathname === `/meals/${id}` ? <MealRecipeDetailsCard details={ details } />
+            : <DrinkRecipeDetailsCard details={ details } />
+        ))}
+      </div>
+      <div className="button-container">
+        <button
+          data-testid="start-recipe-btn"
+          type="button"
+          className="start-button"
+        >
+          Start Recipe
+
+        </button>
+      </div>
     </section>
   );
 }

@@ -97,7 +97,7 @@ function DrinkRecipeDetailsCard(props) {
           data-testid="recipe-photo"
           src={ strDrinkThumb }
           alt={ strDrink }
-          width="200px"
+          width="150px"
         />
         <h2 data-testid="recipe-category">{`${strCategory} ${strAlcoholic}`}</h2>
         <ul>
