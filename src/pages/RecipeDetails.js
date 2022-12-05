@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation, useParams } from 'react-router-dom';
+import { useHistory, useLocation, useParams } from 'react-router-dom';
 import DrinkRecipeDetailsCard from '../components/DrinkRecipeDetailsCard';
 import MealRecipeDetailsCard from '../components/MealRecipeDetailsCard';
 import { thunkToDrinkDetails, thunkToMealDetails } from '../redux/actions';
@@ -10,6 +10,7 @@ function RecipeDetails() {
   const { id } = useParams();
   const { pathname } = useLocation();
   const dispatch = useDispatch();
+  const history = useHistory();
   const recipeDetails = useSelector((state) => state.getRecipesReducer.recipeDetails);
 
   useEffect(() => {
@@ -19,6 +20,10 @@ function RecipeDetails() {
       dispatch(thunkToDrinkDetails(id));
     }
   }, [dispatch, id, pathname]);
+
+  const handleClick = () => {
+    history.push(`${id}/in-progress`);
+  };
 
   return (
 
@@ -34,6 +39,7 @@ function RecipeDetails() {
           data-testid="start-recipe-btn"
           type="button"
           className="start-button"
+          onClick={ handleClick }
         >
           Start Recipe
 
