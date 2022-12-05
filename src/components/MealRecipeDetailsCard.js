@@ -114,13 +114,13 @@ function RecipeDetailsCard(props) {
     <section>
       <div className="meal-details-container">
         <h1 data-testid="recipe-title">{strMeal}</h1>
+        <h4 data-testid="recipe-category">{`Category: ${strCategory}`}</h4>
         <img
           data-testid="recipe-photo"
           src={ strMealThumb }
           alt={ strMeal }
           width="150px"
         />
-        <h2 data-testid="recipe-category">{strCategory}</h2>
         <ul>
           { arrayToMap.map((e, index) => (
             <li
@@ -132,7 +132,8 @@ function RecipeDetailsCard(props) {
             </li>
           )) }
         </ul>
-        <h3 data-testid="instructions">{strInstructions}</h3>
+        <h4>Instructions</h4>
+        <p data-testid="instructions">{strInstructions}</p>
         <iframe
           data-testid="video"
           title={ strMeal }
