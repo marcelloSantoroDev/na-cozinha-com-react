@@ -10,7 +10,6 @@ function DrinkRecipeDetailsCard(props) {
   const dispatch = useDispatch();
   const recomendations = useSelector((state) => state.getRecipesReducer.recomendations);
   const SIX = 6;
-  console.log(recomendations);
 
   useEffect(() => {
     dispatch(thunkToMealRecomendations());
@@ -93,13 +92,18 @@ function DrinkRecipeDetailsCard(props) {
     <section>
       <div className="drink-details-container">
         <h1 data-testid="recipe-title">{strDrink}</h1>
+        <h4
+          data-testid="recipe-category"
+        >
+          {`Category: ${strCategory}, ${strAlcoholic}`}
+
+        </h4>
         <img
           data-testid="recipe-photo"
           src={ strDrinkThumb }
           alt={ strDrink }
           width="150px"
         />
-        <h2 data-testid="recipe-category">{`${strCategory} ${strAlcoholic}`}</h2>
         <ul>
           { arrayToMap.map((e, index) => (
             <li
@@ -111,7 +115,8 @@ function DrinkRecipeDetailsCard(props) {
             </li>
           )) }
         </ul>
-        <h3 data-testid="instructions">{strInstructions}</h3>
+        <h4>Instructions</h4>
+        <p data-testid="instructions">{strInstructions}</p>
       </div>
       <div className="recomendations-container">
         {recomendations.filter((_e, i) => i < SIX).map((recomendation, index) => (
