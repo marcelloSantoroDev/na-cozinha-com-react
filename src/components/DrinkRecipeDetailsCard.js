@@ -1,8 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { thunkToMealRecomendations } from '../redux/actions';
 import MealRecomendationsCard from './MealRecomendationsCard';
 import './css/Recomendations.css';
+import whiteHeart from '../images/whiteHeartIcon.svg';
+import blackHeart from '../images/blackHeartIcon.svg';
 
 function DrinkRecipeDetailsCard(props) {
   const { details } = props;
@@ -15,15 +17,20 @@ function DrinkRecipeDetailsCard(props) {
   } = details;
   const dispatch = useDispatch();
   const recomendations = useSelector((state) => state.getRecipesReducer.recomendations);
+  const [isThisDrinkFavorited, setIsThisDrinkFavorited] = useState(false);
   const SIX = 6;
   console.log(details);
 
   useEffect(() => {
-    const favoriteRecipes = localStorage.getItem('favoriteRecipes');
+    const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
     if (!favoriteRecipes) {
       localStorage.setItem('favoriteRecipes', JSON.stringify([]));
     }
-  }, []);
+    if (favoriteRecipes !== null) {
+      const findFavoriteDrink = favoriteRecipes.some((drink) => drink.id === idDrink);
+      setIsThisDrinkFavorited(findFavoriteDrink);
+    }
+  }, [idDrink]);
 
   useEffect(() => {
     dispatch(thunkToMealRecomendations());
@@ -126,9 +133,14 @@ function DrinkRecipeDetailsCard(props) {
             type="button"
             data-testid="favorite-btn"
             onClick={ handleClick }
+            src={ isThisDrinkFavorited ? blackHeart : whiteHeart }
           >
             Favorite
-
+            <img
+              src={ isThisDrinkFavorited ? blackHeart : whiteHeart }
+              alt="unfavorited drink"
+              width="12px"
+            />
           </button>
         </div>
         <h1 data-testid="recipe-title">{strDrink}</h1>
