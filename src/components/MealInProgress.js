@@ -191,8 +191,19 @@ function MealInProgress(props) {
               data-testid={ `${index}-ingredient-name-and-measure` }
               key={ e + index }
             >
-              {e}
+              <label
+                data-testid={ `${index}-ingredient-step` }
+                htmlFor={ `${index}-ingredient-step` }
 
+              >
+                <input
+                  type="checkbox"
+                  value={ index }
+                  name={ `${index}-ingredient-step` }
+                />
+                {e}
+
+              </label>
             </li>
           )) }
         </ul>
