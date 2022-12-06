@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import copy from 'clipboard-copy';
 import { thunkToDrinkRecomendations } from '../redux/actions';
 import DrinkRecomendationCard from './DrinkRecomendationCard';
 import './css/Recomendations.css';
 import whiteHeart from '../images/whiteHeartIcon.svg';
 import blackHeart from '../images/blackHeartIcon.svg';
+import shareIcon from '../images/shareIcon.svg';
 
 function MealRecipeDetailsCard(props) {
   const { details } = props;
@@ -20,17 +22,8 @@ function MealRecipeDetailsCard(props) {
   const dispatch = useDispatch();
   const recomendations = useSelector((state) => state.getRecipesReducer.recomendations);
   const [isThisMealFavorited, setIsThisMealFavorited] = useState(false);
+  const [isThisMealShared, setIsThisMealShared] = useState(false);
   const SIX = 6;
-
-  //   [{
-  //     id: id-da-receita,
-  //     type: meal-ou-drink, // hardcoded
-  //     nationality: nacionalidade-da-receita-ou-texto-vazio, //hard
-  //     category: categoria-da-receita-ou-texto-vazio,
-  //     alcoholicOrNot: alcoholic-ou-non-alcoholic-ou-texto-vazio,
-  //     name: nome-da-receita,
-  //     image: imagem-da-receita
-  // }]
 
   useEffect(() => {
     const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
@@ -47,7 +40,7 @@ function MealRecipeDetailsCard(props) {
     dispatch(thunkToDrinkRecomendations());
   }, [dispatch]);
 
-  const handleClick = () => {
+  const handleFavoriteClick = () => {
     const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
     const findFavoriteMeal = favoriteRecipes.some((meal) => meal.id === idMeal);
     if (findFavoriteMeal) {
@@ -68,6 +61,11 @@ function MealRecipeDetailsCard(props) {
       localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
       setIsThisMealFavorited(true);
     }
+  };
+
+  const handleShareClick = () => {
+    copy(window.location.href);
+    setIsThisMealShared(true);
   };
 
   const { strIngredient1,
@@ -161,17 +159,26 @@ function MealRecipeDetailsCard(props) {
   const filteredMeasures = measureArray
     .filter((e) => e !== '' && e !== null && e !== false && e !== ' ');
 
-  const arrayToMap = filteredIngredients.map((e, i) => `${filteredMeasures[i]} of ${e} `);
+  const arrayToMap = filteredIngredients
+    .map((ingredient, i) => `${filteredMeasures[i]} of ${ingredient} `);
 
   return (
     <section>
       <div className="meal-details-container">
         <div className="share-button-container">
-          <button type="button" data-testid="share-btn">Share</button>
+          <button
+            type="button"
+            data-testid="share-btn"
+            src={ shareIcon }
+            onClick={ handleShareClick }
+          >
+            Share
+            <img src={ shareIcon } alt="share-icon" width="12px" />
+          </button>
           <button
             type="button"
             data-testid="favorite-btn"
-            onClick={ handleClick }
+            onClick={ handleFavoriteClick }
             src={ isThisMealFavorited ? blackHeart : whiteHeart }
           >
             Favorite
@@ -182,6 +189,7 @@ function MealRecipeDetailsCard(props) {
             />
           </button>
         </div>
+        { isThisMealShared && <p>Link copied!</p> }
         <h1 data-testid="recipe-title">{strMeal}</h1>
         <h4 data-testid="recipe-category">{`Category: ${strCategory}`}</h4>
         <img
