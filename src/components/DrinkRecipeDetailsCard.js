@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import copy from 'clipboard-copy';
 import { thunkToMealRecomendations } from '../redux/actions';
 import MealRecomendationsCard from './MealRecomendationsCard';
 import './css/Recomendations.css';
@@ -19,6 +20,7 @@ function DrinkRecipeDetailsCard(props) {
   const dispatch = useDispatch();
   const recomendations = useSelector((state) => state.getRecipesReducer.recomendations);
   const [isThisDrinkFavorited, setIsThisDrinkFavorited] = useState(false);
+  const [isThisDrinkShared, setIsThisDrinkShared] = useState(false);
   const SIX = 6;
   console.log(details);
 
@@ -37,7 +39,7 @@ function DrinkRecipeDetailsCard(props) {
     dispatch(thunkToMealRecomendations());
   }, [dispatch]);
 
-  const handleClick = () => {
+  const handleFavoriteClick = () => {
     const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
     const findFavoriteDrink = favoriteRecipes.some((drink) => drink.id === idDrink);
     if (findFavoriteDrink) {
@@ -58,6 +60,11 @@ function DrinkRecipeDetailsCard(props) {
       localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
       setIsThisDrinkFavorited(true);
     }
+  };
+
+  const handleShareClick = () => {
+    copy(window.location.href);
+    setIsThisDrinkShared(true);
   };
 
   const { strIngredient1,
@@ -142,6 +149,7 @@ function DrinkRecipeDetailsCard(props) {
             type="button"
             data-testid="share-btn"
             src={ shareIcon }
+            onClick={ handleShareClick }
           >
             Share
             <img src={ shareIcon } alt="share-icon" width="12px" />
@@ -149,7 +157,7 @@ function DrinkRecipeDetailsCard(props) {
           <button
             type="button"
             data-testid="favorite-btn"
-            onClick={ handleClick }
+            onClick={ handleFavoriteClick }
             src={ isThisDrinkFavorited ? blackHeart : whiteHeart }
           >
             Favorite
@@ -160,6 +168,7 @@ function DrinkRecipeDetailsCard(props) {
             />
           </button>
         </div>
+        { isThisDrinkShared && <p>Link copied!</p> }
         <h1 data-testid="recipe-title">{strDrink}</h1>
         <h4
           data-testid="recipe-category"
