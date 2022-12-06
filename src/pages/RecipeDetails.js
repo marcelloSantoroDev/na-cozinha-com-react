@@ -15,6 +15,8 @@ function RecipeDetails() {
   const [recipeId, setRecipeId] = useState(false);
   const [recipeInProgress, setRecipeInProgress] = useState(false);
 
+  console.log(recipeDetails);
+
   useEffect(() => {
     const doneRecipes = localStorage.getItem('doneRecipes');
     if (doneRecipes !== null) {
@@ -28,8 +30,6 @@ function RecipeDetails() {
       setRecipeInProgress(inProgressRecipes.length > 0);
     }
   }, [id, pathname]);
-
-  console.log(recipeInProgress);
 
   useEffect(() => {
     if (pathname === `/meals/${id}`) {
@@ -46,10 +46,6 @@ function RecipeDetails() {
   return (
 
     <section className="details-section">
-      <div className="share-button-container">
-        <button type="button" data-testid="share-btn">Share</button>
-        <button type="button" data-testid="favorite-btn">Favorite</button>
-      </div>
       <div className="details-card-container">
         {recipeDetails.map((details) => (
           pathname === `/meals/${id}` ? <MealRecipeDetailsCard details={ details } />

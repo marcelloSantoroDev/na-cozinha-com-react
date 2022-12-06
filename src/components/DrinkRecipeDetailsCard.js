@@ -6,14 +6,43 @@ import './css/Recomendations.css';
 
 function DrinkRecipeDetailsCard(props) {
   const { details } = props;
-  const { strDrink, strAlcoholic, strDrinkThumb, strInstructions, strCategory } = details;
+  const { strDrink,
+    strAlcoholic,
+    strDrinkThumb,
+    strInstructions,
+    strCategory,
+    idDrink,
+  } = details;
   const dispatch = useDispatch();
   const recomendations = useSelector((state) => state.getRecipesReducer.recomendations);
   const SIX = 6;
+  console.log(details);
+
+  useEffect(() => {
+    const favoriteRecipes = localStorage.getItem('favoriteRecipes');
+    if (!favoriteRecipes) {
+      localStorage.setItem('favoriteRecipes', JSON.stringify([]));
+    }
+  }, []);
 
   useEffect(() => {
     dispatch(thunkToMealRecomendations());
   }, [dispatch]);
+
+  const handleClick = () => {
+    const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    const favoriteObject = {
+      id: idDrink,
+      type: 'drink',
+      nationality: '',
+      category: strCategory,
+      alcoholicOrNot: strAlcoholic,
+      name: strDrink,
+      image: strDrinkThumb,
+    };
+    favoriteRecipes.push(favoriteObject);
+    localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
+  };
 
   const { strIngredient1,
     strIngredient2,
@@ -91,6 +120,17 @@ function DrinkRecipeDetailsCard(props) {
   return (
     <section>
       <div className="drink-details-container">
+        <div className="share-button-container">
+          <button type="button" data-testid="share-btn">Share</button>
+          <button
+            type="button"
+            data-testid="favorite-btn"
+            onClick={ handleClick }
+          >
+            Favorite
+
+          </button>
+        </div>
         <h1 data-testid="recipe-title">{strDrink}</h1>
         <h4
           data-testid="recipe-category"

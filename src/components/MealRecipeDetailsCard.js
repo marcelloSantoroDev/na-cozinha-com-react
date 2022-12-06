@@ -7,15 +7,53 @@ import './css/Recomendations.css';
 function RecipeDetailsCard(props) {
   const { details } = props;
   const { strMeal,
-    strCategory, strMealThumb, strInstructions, strYoutube } = details;
+    strCategory,
+    strMealThumb,
+    strInstructions,
+    strYoutube,
+    idMeal,
+    strArea,
+  } = details;
   const embedId = strYoutube.split('=')[1];
   const dispatch = useDispatch();
   const recomendations = useSelector((state) => state.getRecipesReducer.recomendations);
   const SIX = 6;
 
+  //   [{
+  //     id: id-da-receita,
+  //     type: meal-ou-drink, // hardcoded
+  //     nationality: nacionalidade-da-receita-ou-texto-vazio, //hard
+  //     category: categoria-da-receita-ou-texto-vazio,
+  //     alcoholicOrNot: alcoholic-ou-non-alcoholic-ou-texto-vazio,
+  //     name: nome-da-receita,
+  //     image: imagem-da-receita
+  // }]
+
+  useEffect(() => {
+    const favoriteRecipes = localStorage.getItem('favoriteRecipes');
+    if (!favoriteRecipes) {
+      localStorage.setItem('favoriteRecipes', JSON.stringify([]));
+    }
+  }, []);
+
   useEffect(() => {
     dispatch(thunkToDrinkRecomendations());
   }, [dispatch]);
+
+  const handleClick = () => {
+    const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    const favoriteObject = {
+      id: idMeal,
+      type: 'meal',
+      nationality: strArea,
+      category: strCategory,
+      alcoholicOrNot: '',
+      name: strMeal,
+      image: strMealThumb,
+    };
+    favoriteRecipes.push(favoriteObject);
+    localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
+  };
 
   const { strIngredient1,
     strIngredient2,
@@ -113,6 +151,17 @@ function RecipeDetailsCard(props) {
   return (
     <section>
       <div className="meal-details-container">
+        <div className="share-button-container">
+          <button type="button" data-testid="share-btn">Share</button>
+          <button
+            type="button"
+            data-testid="favorite-btn"
+            onClick={ handleClick }
+          >
+            Favorite
+
+          </button>
+        </div>
         <h1 data-testid="recipe-title">{strMeal}</h1>
         <h4 data-testid="recipe-category">{`Category: ${strCategory}`}</h4>
         <img
