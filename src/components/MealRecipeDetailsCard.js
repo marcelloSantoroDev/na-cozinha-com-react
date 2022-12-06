@@ -5,6 +5,7 @@ import DrinkRecomendationCard from './DrinkRecomendationCard';
 import './css/Recomendations.css';
 import whiteHeart from '../images/whiteHeartIcon.svg';
 import blackHeart from '../images/blackHeartIcon.svg';
+import shareIcon from '../images/shareIcon.svg';
 
 function MealRecipeDetailsCard(props) {
   const { details } = props;
@@ -21,16 +22,6 @@ function MealRecipeDetailsCard(props) {
   const recomendations = useSelector((state) => state.getRecipesReducer.recomendations);
   const [isThisMealFavorited, setIsThisMealFavorited] = useState(false);
   const SIX = 6;
-
-  //   [{
-  //     id: id-da-receita,
-  //     type: meal-ou-drink, // hardcoded
-  //     nationality: nacionalidade-da-receita-ou-texto-vazio, //hard
-  //     category: categoria-da-receita-ou-texto-vazio,
-  //     alcoholicOrNot: alcoholic-ou-non-alcoholic-ou-texto-vazio,
-  //     name: nome-da-receita,
-  //     image: imagem-da-receita
-  // }]
 
   useEffect(() => {
     const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
@@ -161,13 +152,21 @@ function MealRecipeDetailsCard(props) {
   const filteredMeasures = measureArray
     .filter((e) => e !== '' && e !== null && e !== false && e !== ' ');
 
-  const arrayToMap = filteredIngredients.map((e, i) => `${filteredMeasures[i]} of ${e} `);
+  const arrayToMap = filteredIngredients
+    .map((ingredient, i) => `${filteredMeasures[i]} of ${ingredient} `);
 
   return (
     <section>
       <div className="meal-details-container">
         <div className="share-button-container">
-          <button type="button" data-testid="share-btn">Share</button>
+          <button
+            type="button"
+            data-testid="share-btn"
+            src={ shareIcon }
+          >
+            Share
+            <img src={ shareIcon } alt="share-icon" width="12px" />
+          </button>
           <button
             type="button"
             data-testid="favorite-btn"
