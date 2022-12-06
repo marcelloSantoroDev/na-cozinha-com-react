@@ -3,6 +3,7 @@ import copy from 'clipboard-copy';
 import whiteHeart from '../images/whiteHeartIcon.svg';
 import blackHeart from '../images/blackHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
+import CheckBox from './CheckBox';
 
 function MealInProgress(props) {
   const { details } = props;
@@ -15,7 +16,6 @@ function MealInProgress(props) {
   } = details;
   const [isThisMealFavorited, setIsThisMealFavorited] = useState(false);
   const [isThisMealShared, setIsThisMealShared] = useState(false);
-
   useEffect(() => {
     const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
     if (!favoriteRecipes) {
@@ -187,24 +187,7 @@ function MealInProgress(props) {
         />
         <ul>
           { arrayToMap.map((e, index) => (
-            <li
-              data-testid={ `${index}-ingredient-name-and-measure` }
-              key={ e + index }
-            >
-              <label
-                data-testid={ `${index}-ingredient-step` }
-                htmlFor={ `${index}-ingredient-step` }
-
-              >
-                <input
-                  type="checkbox"
-                  value={ index }
-                  name={ `${index}-ingredient-step` }
-                />
-                {e}
-
-              </label>
-            </li>
+            <CheckBox e={ e } index={ index } key={ e + index } />
           )) }
         </ul>
         <h4>Instructions</h4>
