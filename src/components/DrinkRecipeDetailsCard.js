@@ -38,17 +38,25 @@ function DrinkRecipeDetailsCard(props) {
 
   const handleClick = () => {
     const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    const favoriteObject = {
-      id: idDrink,
-      type: 'drink',
-      nationality: '',
-      category: strCategory,
-      alcoholicOrNot: strAlcoholic,
-      name: strDrink,
-      image: strDrinkThumb,
-    };
-    favoriteRecipes.push(favoriteObject);
-    localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
+    const findFavoriteDrink = favoriteRecipes.some((drink) => drink.id === idDrink);
+    if (findFavoriteDrink) {
+      const filteredFavorites = favoriteRecipes.filter((recipe) => recipe.id !== idDrink);
+      localStorage.setItem('favoriteRecipes', JSON.stringify(filteredFavorites));
+      setIsThisDrinkFavorited(false);
+    } else {
+      const favoriteObject = {
+        id: idDrink,
+        type: 'drink',
+        nationality: '',
+        category: strCategory,
+        alcoholicOrNot: strAlcoholic,
+        name: strDrink,
+        image: strDrinkThumb,
+      };
+      favoriteRecipes.push(favoriteObject);
+      localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
+      setIsThisDrinkFavorited(true);
+    }
   };
 
   const { strIngredient1,
