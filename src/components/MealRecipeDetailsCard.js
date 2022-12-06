@@ -6,7 +6,7 @@ import './css/Recomendations.css';
 import whiteHeart from '../images/whiteHeartIcon.svg';
 import blackHeart from '../images/blackHeartIcon.svg';
 
-function RecipeDetailsCard(props) {
+function MealRecipeDetailsCard(props) {
   const { details } = props;
   const { strMeal,
     strCategory,
@@ -49,17 +49,25 @@ function RecipeDetailsCard(props) {
 
   const handleClick = () => {
     const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    const favoriteObject = {
-      id: idMeal,
-      type: 'meal',
-      nationality: strArea,
-      category: strCategory,
-      alcoholicOrNot: '',
-      name: strMeal,
-      image: strMealThumb,
-    };
-    favoriteRecipes.push(favoriteObject);
-    localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
+    const findFavoriteMeal = favoriteRecipes.some((meal) => meal.id === idMeal);
+    if (findFavoriteMeal) {
+      const filteredFavorites = favoriteRecipes.filter((recipe) => recipe.id !== idMeal);
+      localStorage.setItem('favoriteRecipes', JSON.stringify(filteredFavorites));
+      setIsThisMealFavorited(false);
+    } else {
+      const favoriteObject = {
+        id: idMeal,
+        type: 'meal',
+        nationality: strArea,
+        category: strCategory,
+        alcoholicOrNot: '',
+        name: strMeal,
+        image: strMealThumb,
+      };
+      favoriteRecipes.push(favoriteObject);
+      localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
+      setIsThisMealFavorited(true);
+    }
   };
 
   const { strIngredient1,
@@ -218,6 +226,6 @@ function RecipeDetailsCard(props) {
   );
 }
 
-RecipeDetailsCard.propTypes = {}.isRequired;
+MealRecipeDetailsCard.propTypes = {}.isRequired;
 
-export default RecipeDetailsCard;
+export default MealRecipeDetailsCard;
