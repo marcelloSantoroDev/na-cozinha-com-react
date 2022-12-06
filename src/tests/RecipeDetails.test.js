@@ -37,7 +37,7 @@ describe('testes tela de detalhes - meals', () => {
     expect(history.location.pathname).toBe('/meals/52977/in-progress');
   });
   test('3', async () => {
-    localStorage.setItem('inProgressRecipes', { meals: { 52977: 'test' } });
+    localStorage.setItem('inProgressRecipes', JSON.stringify({ meals: { 52977: 'test' } }));
     const { history } = renderWithRouterAndRedux(<App />);
     act(() => {
       history.push(mealPathString);
@@ -58,7 +58,6 @@ describe('testes tela de detalhes - drinks', () => {
     expect(await screen.findByRole('button', { name: /share/i })).toBeInTheDocument();
     expect(await screen.findByRole('heading', { name: /instructions/i })).toBeInTheDocument();
     expect(await screen.findByRole('button', { name: /start recipe/i })).toBeInTheDocument();
-    // expect(await findByTestId('recipe-category')).toHaveTextContent('Side');
   });
   test('2', async () => {
     const { history } = renderWithRouterAndRedux(<App />);
@@ -72,12 +71,19 @@ describe('testes tela de detalhes - drinks', () => {
     expect(history.location.pathname).toBe('/drinks/13501/in-progress');
   });
   test('3', async () => {
-    localStorage.setItem('inProgressRecipes', { drinks: { 13501: 'test' } });
+    localStorage.setItem('inProgressRecipes', JSON.stringify({ drinks: { 13501: 'test' } }));
     const { history } = renderWithRouterAndRedux(<App />);
     act(() => {
       history.push(drinkPathString);
     });
     const continueRecipe = await screen.findByRole('button', { name: /continue recipe/i });
     expect(continueRecipe).toBeInTheDocument();
+  });
+  test('4', async () => {
+    localStorage.setItem('doneRecipes', JSON.stringify([{ id: '13501' }]));
+    const { history } = renderWithRouterAndRedux(<App />);
+    act(() => {
+      history.push(drinkPathString);
+    });
   });
 });

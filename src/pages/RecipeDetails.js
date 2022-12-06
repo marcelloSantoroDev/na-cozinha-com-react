@@ -18,16 +18,32 @@ function RecipeDetails() {
   console.log(recipeDetails);
 
   useEffect(() => {
-    const doneRecipes = localStorage.getItem('doneRecipes');
+    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
     if (doneRecipes !== null) {
-      setRecipeId(doneRecipes.id === id);
+      const findRecipe = doneRecipes.some((recipe) => recipe.id === id);
+      setRecipeId(findRecipe);
     }
   }, [id]);
 
+  // useEffect(() => {
+  //   const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  //   if (inProgressRecipes !== null && inProgressRecipes !== undefined) {
+  //     setRecipeInProgress(inProgressRecipes.length > 0);
+  //   }
+  // }, [id, pathname]);
+
   useEffect(() => {
-    const inProgressRecipes = localStorage.getItem('inProgressRecipes');
-    if (inProgressRecipes !== null && inProgressRecipes !== undefined) {
-      setRecipeInProgress(inProgressRecipes.length > 0);
+    const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (inProgressRecipes !== null
+      && inProgressRecipes !== undefined && pathname === `/meals/${id}`) {
+      const ids = Object.keys(inProgressRecipes.meals);
+      const findSomeId = ids.some((someId) => someId === id);
+      setRecipeInProgress(findSomeId);
+    } else if (inProgressRecipes !== null
+      && inProgressRecipes !== undefined && pathname === `/drinks/${id}`) {
+      const ids = Object.keys(inProgressRecipes.drinks);
+      const findSomeId = ids.some((someId) => someId === id);
+      setRecipeInProgress(findSomeId);
     }
   }, [id, pathname]);
 
