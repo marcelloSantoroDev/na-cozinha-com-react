@@ -187,7 +187,13 @@ function MealInProgress(props) {
         />
         <ul>
           { arrayToMap.map((e, index) => (
-            <CheckBox e={ e } index={ index } key={ e + index } />
+            <CheckBox
+              e={ e }
+              index={ index }
+              key={ e + index }
+              id={ idMeal }
+              type="meal"
+            />
           )) }
         </ul>
         <h4>Instructions</h4>

@@ -1,9 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './css/InProgress.css';
 
 function CheckBox(props) {
-  const { e, index } = props;
+  const { e, index, type, id } = props;
   const [isThisStepChecked, setIsThisStepChecked] = useState(false);
+
+  useEffect(() => {
+    const inProgressRecipes = localStorage.getItem('inProgressRecipes');
+    if (!inProgressRecipes) {
+      localStorage.setItem(
+        'inProgressRecipes',
+        JSON.stringify({ drinks: {}, meals: {} }),
+      );
+    }
+  }, []);
+
+  useEffect(() => {
+
+  }, []);
 
   const handleCheckClick = ({ target: { checked } }) => {
     setIsThisStepChecked(checked);
