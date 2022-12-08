@@ -1,8 +1,20 @@
 import React from 'react';
+import copy from 'clipboard-copy';
 import Share from '../images/shareIcon.svg';
 
 function DoneRecipesCard(props) {
   const { recipe, index } = props;
+
+  const handleShareClick = () => {
+    const url = window.location.href.split('done-recipes')[0];
+    if (recipe.type === 'meal') {
+      const mealUrl = url.concat('', `meals/${recipe.id}`);
+      copy(mealUrl);
+    } else {
+      const drinkUrl = url.concat('', `drinks/${recipe.id}`);
+      copy(drinkUrl);
+    }
+  };
   return (
     <div>
       <img
@@ -38,6 +50,7 @@ function DoneRecipesCard(props) {
       <button
         type="button"
         data-testid={ `${index}-horizontal-share-btn` }
+        onClick={ handleShareClick }
       >
         <img src={ Share } alt="share-icon" />
       </button>
