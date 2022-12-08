@@ -26,8 +26,9 @@ function DoneRecipesCard(props) {
       >
         <img
           data-testid={ `${index}-horizontal-image` }
-          src={ recipe.img }
+          src={ recipe.image }
           alt="recipe-img"
+          width="150px"
         />
         <p data-testid={ `${index}-horizontal-name` }>{recipe.name}</p>
       </Link>
@@ -35,7 +36,7 @@ function DoneRecipesCard(props) {
       {recipe.type === 'meal'
       && (
         <p data-testid={ `${index}-horizontal-top-text` }>
-          {`${recipe.category} ${recipe.nationality}`}
+          {`${recipe.nationality} - ${recipe.category}`}
         </p>
       )}
 
@@ -50,15 +51,20 @@ function DoneRecipesCard(props) {
 
       {recipe.type === 'meal'
       && (
-        <p data-testid={ `${index}-${tagName}-horizontal-tag` }>
-          {recipe.tags}
-        </p>
+        recipe.tags.map((tag, i) => (
+          <p
+            data-testid={ `${index}-${tag}-horizontal-tag` }
+            key={ `tag-${i}` }
+          >
+            {tag}
+          </p>))
       )}
       {isThisRecipeShared && <p>Link copied!</p>}
       <button
         type="button"
         data-testid={ `${index}-horizontal-share-btn` }
         onClick={ handleShareClick }
+        src={ Share }
       >
         <img src={ Share } alt="share-icon" />
       </button>
