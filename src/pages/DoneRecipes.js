@@ -73,7 +73,11 @@ function DoneRecipes() {
       </div>
       <div>
         {doneRecipes.map((recipe, index) => (
-          <DoneRecipesCard key={ `done-recipes-${index}` } recipe={ recipe } />
+          <DoneRecipesCard
+            key={ `done-recipes-${index}` }
+            recipe={ recipe }
+            index={ index }
+          />
         ))}
       </div>
     </section>
