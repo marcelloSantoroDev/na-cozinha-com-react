@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import copy from 'clipboard-copy';
 import whiteHeart from '../images/whiteHeartIcon.svg';
 import blackHeart from '../images/blackHeartIcon.svg';
@@ -8,12 +9,14 @@ import CheckBox from './CheckBox';
 
 function DrinkInProgress(props) {
   const { details } = props;
+  const history = useHistory();
   const { strDrink,
     strAlcoholic,
     strDrinkThumb,
     strInstructions,
     strCategory,
     idDrink,
+    strTags,
   } = details;
   const [isThisDrinkFavorited, setIsThisDrinkFavorited] = useState(false);
   const [isThisDrinkShared, setIsThisDrinkShared] = useState(false);
@@ -32,8 +35,22 @@ function DrinkInProgress(props) {
   }, [idDrink]);
 
   useEffect(() => {
+    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+    if (!doneRecipes) {
+      localStorage.setItem('doneRecipes', JSON.stringify([]));
+    }
+  }, []);
+
+  useEffect(() => {
     setCheckedSteps(count);
   }, [count]);
+
+  const handleTags = () => {
+    if (strTags === null) {
+      return [];
+    }
+    return strTags.split(',');
+  };
 
   const handleFavoriteClick = () => {
     const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
@@ -64,71 +81,46 @@ function DrinkInProgress(props) {
     setIsThisDrinkShared(true);
   };
 
-  const { strIngredient1,
-    strIngredient2,
-    strIngredient3,
-    strIngredient4,
-    strIngredient5,
-    strIngredient6,
-    strIngredient7,
-    strIngredient8,
-    strIngredient9,
-    strIngredient10,
-    strIngredient11,
-    strIngredient12,
-    strIngredient13,
-    strIngredient14,
-    strIngredient15,
+  const handleFinishClick = () => {
+    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+    const findDoneRecipe = doneRecipes.some((drink) => drink.id === idDrink);
+    if (findDoneRecipe) {
+      history.push('/done-recipes');
+    } else {
+      const doneObject = {
+        id: idDrink,
+        type: 'drink',
+        nationality: '',
+        category: strCategory,
+        alcoholicOrNot: strAlcoholic,
+        name: strDrink,
+        image: strDrinkThumb,
+        doneDate: new Date(),
+        tags: handleTags(),
+      };
+      doneRecipes.push(doneObject);
+      localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
+      history.push('/done-recipes');
+    }
+  };
+
+  const { strIngredient1, strIngredient2, strIngredient3, strIngredient4, strIngredient5,
+    strIngredient6, strIngredient7, strIngredient8, strIngredient9, strIngredient10,
+    strIngredient11, strIngredient12, strIngredient13, strIngredient14, strIngredient15,
   } = details;
 
-  const { strMeasure1,
-    strMeasure2,
-    strMeasure3,
-    strMeasure4,
-    strMeasure5,
-    strMeasure6,
-    strMeasure7,
-    strMeasure8,
-    strMeasure9,
-    strMeasure10,
-    strMeasure11,
-    strMeasure12,
-    strMeasure13,
-    strMeasure14,
-    strMeasure15,
-  } = details;
+  const { strMeasure1, strMeasure2, strMeasure3, strMeasure4, strMeasure5,
+    strMeasure6, strMeasure7, strMeasure8, strMeasure9, strMeasure10, strMeasure11,
+    strMeasure12, strMeasure13, strMeasure14, strMeasure15 } = details;
 
-  const measureArray = [strMeasure1,
-    strMeasure2,
-    strMeasure3,
-    strMeasure4,
-    strMeasure5,
-    strMeasure6,
-    strMeasure7,
-    strMeasure8,
-    strMeasure9,
-    strMeasure10,
-    strMeasure11,
-    strMeasure12,
-    strMeasure13,
-    strMeasure14,
-    strMeasure15];
+  const measureArray = [strMeasure1, strMeasure2, strMeasure3, strMeasure4,
+    strMeasure5, strMeasure6, strMeasure7, strMeasure8, strMeasure9, strMeasure10,
+    strMeasure11, strMeasure12, strMeasure13, strMeasure14, strMeasure15];
 
-  const ingredientsArray = [strIngredient1,
-    strIngredient2,
-    strIngredient3,
-    strIngredient4,
-    strIngredient5,
-    strIngredient6,
-    strIngredient7,
-    strIngredient8,
-    strIngredient9,
-    strIngredient10,
-    strIngredient11,
-    strIngredient12,
-    strIngredient13,
-    strIngredient14,
-    strIngredient15];
+  const ingredientsArray = [strIngredient1, strIngredient2, strIngredient3,
+    strIngredient4, strIngredient5, strIngredient6, strIngredient7, strIngredient8,
+    strIngredient9, strIngredient10, strIngredient11, strIngredient12, strIngredient13,
+    strIngredient14, strIngredient15];
 
   const filteredIngredients = ingredientsArray
     .filter((e) => e !== '' && e !== null && e !== false && e !== ' ');
@@ -200,7 +192,7 @@ function DrinkInProgress(props) {
           type="button"
           className="finish-button"
           disabled={ arrayToMap.length !== checkedSteps }
-          // onClick={ handleClick }
+          onClick={ handleFinishClick }
         >
           Finish Recipe
         </button>

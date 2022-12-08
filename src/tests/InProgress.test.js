@@ -20,6 +20,8 @@ const stepsArray = ['1 cup of Lentils',
   'Pinch of Sea Salt',
 ];
 
+// const drinkPathString = '/drinks/15997/in-progress';
+
 describe('testes tela inProgress - meals', () => {
   test('1', async () => {
     const { history } = renderWithRouterAndRedux(<App />);
