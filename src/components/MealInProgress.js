@@ -51,7 +51,8 @@ function MealInProgress(props) {
   };
 
   const handleShareClick = () => {
-    copy(window.location.href);
+    const url = window.location.href.split('/in-progress')[0];
+    copy(url);
     setIsThisMealShared(true);
   };
 
