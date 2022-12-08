@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import copy from 'clipboard-copy';
 import Share from '../images/shareIcon.svg';
 
 function DoneRecipesCard(props) {
   const { recipe, index } = props;
+  const [isThisRecipeShared, setIsThisRecipeShared] = useState(false);
 
   const handleShareClick = () => {
+    setIsThisRecipeShared(true);
     const url = window.location.href.split('done-recipes')[0];
     if (recipe.type === 'meal') {
       const mealUrl = url.concat('', `meals/${recipe.id}`);
@@ -46,7 +48,7 @@ function DoneRecipesCard(props) {
           {recipe.tags}
         </p>
       )}
-
+      {isThisRecipeShared && <p>Link copied!</p>}
       <button
         type="button"
         data-testid={ `${index}-horizontal-share-btn` }
