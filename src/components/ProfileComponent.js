@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-// import Header from './Header';
 import Footer from './Footer';
 
 function ProfileComponent() {
@@ -9,11 +8,12 @@ function ProfileComponent() {
 
   useEffect(() => {
     const userEmail = JSON.parse(localStorage.getItem('user'));
-    setEmailProfile(userEmail.email);
+    if (userEmail !== null) {
+      setEmailProfile(userEmail.email);
+    }
   }, [setEmailProfile]);
   return (
     <div>
-      {/* <Header /> */}
       <h4 data-testid="profile-email">{emailProfile}</h4>
       <button
         type="button"
