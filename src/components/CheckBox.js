@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { getCurrentSteps } from '../redux/actions';
 import './css/InProgress.css';
 
 function CheckBox(props) {
   const { e, index, type, id } = props;
   const [isThisStepChecked, setIsThisStepChecked] = useState(false);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const inProgressRecipes = localStorage.getItem('inProgressRecipes');
@@ -21,16 +24,17 @@ function CheckBox(props) {
       const ids = Object.keys(inProgressRecipes.drinks);
       if (ids.some((el) => el === id)) {
         const recipe = inProgressRecipes.drinks[id];
-
+        dispatch(getCurrentSteps(recipe.length));
         if (recipe.includes(index)) {
           setIsThisStepChecked(true);
         }
       } else {
         inProgressRecipes.drinks[id] = [];
         localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
+        dispatch(getCurrentSteps(inProgressRecipes.drinks[id].length));
       }
     }
-  }, [id, type, index]);
+  }, [id, type, index, dispatch]);
 
   useEffect(() => {
     const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
@@ -38,16 +42,17 @@ function CheckBox(props) {
       const ids = Object.keys(inProgressRecipes.meals);
       if (ids.some((el) => el === id)) {
         const recipe = inProgressRecipes.meals[id];
-
+        dispatch(getCurrentSteps(recipe.length));
         if (recipe.includes(index)) {
           setIsThisStepChecked(true);
         }
       } else {
         inProgressRecipes.meals[id] = [];
         localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
+        dispatch(getCurrentSteps(inProgressRecipes.meals[id].length));
       }
     }
-  }, [id, index, type]);
+  }, [id, index, type, dispatch]);
 
   const handleCheckClick = ({ target: { checked } }) => {
     setIsThisStepChecked(checked);
@@ -61,9 +66,11 @@ function CheckBox(props) {
           .filter((stepIndex) => stepIndex !== index);
         inProgressRecipes.meals[id] = filteredIndex;
         localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
+        dispatch(getCurrentSteps(inProgressRecipes.meals[id].length));
       } else {
         inProgressRecipes.meals[id].push(index);
         localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
+        dispatch(getCurrentSteps(inProgressRecipes.meals[id].length));
       }
     }
     if (type === 'drink' && inProgressRecipes !== null) {
@@ -73,9 +80,11 @@ function CheckBox(props) {
           .filter((stepIndex) => stepIndex !== index);
         inProgressRecipes.drinks[id] = filteredIndex;
         localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
+        dispatch(getCurrentSteps(inProgressRecipes.drinks[id].length));
       } else {
         inProgressRecipes.drinks[id].push(index);
         localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
+        dispatch(getCurrentSteps(inProgressRecipes.drinks[id].length));
       }
     }
   };
