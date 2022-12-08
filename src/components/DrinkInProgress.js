@@ -52,7 +52,8 @@ function DrinkInProgress(props) {
   };
 
   const handleShareClick = () => {
-    copy(window.location.href);
+    const url = window.location.href.split('/in-progress')[0];
+    copy(url);
     setIsThisDrinkShared(true);
   };
 
@@ -174,7 +175,13 @@ function DrinkInProgress(props) {
         />
         <ul>
           { arrayToMap.map((e, index) => (
-            <CheckBox e={ e } index={ index } key={ e + index } />
+            <CheckBox
+              e={ e }
+              index={ index }
+              key={ e + index }
+              type="drink"
+              id={ idDrink }
+            />
           )) }
         </ul>
         <h4>Instructions</h4>

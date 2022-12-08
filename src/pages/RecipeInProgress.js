@@ -23,9 +23,10 @@ function RecipeInProgress() {
   return (
     <section className="progress-section">
       <div className="progress-card-container">
-        {recipeDetails.map((details) => (
-          pathname === `/meals/${id}/in-progress` ? <MealInProgress details={ details } />
-            : <DrinkInProgress details={ details } />
+        {recipeDetails.map((details, i) => (
+          pathname === `/meals/${id}/in-progress`
+            ? <MealInProgress key={ `progress-meal-${i}` } details={ details } />
+            : <DrinkInProgress key={ `progress-drink-${i}` } details={ details } />
         ))}
       </div>
       <div className="start-button-container">

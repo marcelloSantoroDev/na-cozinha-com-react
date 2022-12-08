@@ -63,9 +63,20 @@ function RecipeDetails() {
 
     <section className="details-section">
       <div className="details-card-container">
-        {recipeDetails.map((details) => (
-          pathname === `/meals/${id}` ? <MealRecipeDetailsCard details={ details } />
-            : <DrinkRecipeDetailsCard details={ details } />
+        {recipeDetails.map((details, i) => (
+          pathname === `/meals/${id}`
+            ? (
+              <MealRecipeDetailsCard
+                key={ `meal-detail-card-${i}` }
+                details={ details }
+              />
+            )
+            : (
+              <DrinkRecipeDetailsCard
+                key={ `drink-detail-card-${i}` }
+                details={ details }
+              />
+            )
         ))}
       </div>
       <div className="start-button-container">

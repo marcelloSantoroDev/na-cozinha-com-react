@@ -105,7 +105,7 @@ function Recipes() {
             && recipes?.filter((_e, i) => i < TWELVE).map((recipe, index) => (
               <RecipeCard
                 key={ location.pathname === '/meals'
-                  ? recipe.idMeal : recipe.idDrink }
+                  ? `${recipe.idMeal}-${index}` : `${recipe.idDrink}-${index}` }
                 index={ index }
                 recipe={ recipe }
               />
