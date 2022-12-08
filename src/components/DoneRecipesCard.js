@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import copy from 'clipboard-copy';
+import { Link } from 'react-router-dom';
 import Share from '../images/shareIcon.svg';
 
 function DoneRecipesCard(props) {
@@ -19,11 +20,17 @@ function DoneRecipesCard(props) {
   };
   return (
     <div>
-      <img
-        data-testid={ `${index}-horizontal-image` }
-        src={ recipe.img }
-        alt="recipe-img"
-      />
+      <Link
+        to={ recipe.type === 'meal' ? `/meals/${recipe.id}`
+          : `/drinks/${recipe.id}` }
+      >
+        <img
+          data-testid={ `${index}-horizontal-image` }
+          src={ recipe.img }
+          alt="recipe-img"
+        />
+        <p data-testid={ `${index}-horizontal-name` }>{recipe.name}</p>
+      </Link>
 
       {recipe.type === 'meal'
       && (
@@ -39,7 +46,6 @@ function DoneRecipesCard(props) {
         </p>
       )}
 
-      <p data-testid={ `${index}-horizontal-name` }>{recipe.name}</p>
       <p data-testid={ `${index}-horizontal-done-date` }>{recipe.doneDate}</p>
 
       {recipe.type === 'meal'

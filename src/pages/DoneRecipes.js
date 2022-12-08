@@ -4,12 +4,37 @@ import Header from '../components/Header';
 
 function DoneRecipes() {
   const [doneRecipes, setDoneRecipes] = useState([]);
+  const [clickedButton, setClickedButton] = useState({
+    button: '',
+  });
   useEffect(() => {
     const getDoneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
     if (getDoneRecipes !== null) {
       setDoneRecipes(getDoneRecipes);
     }
   }, []);
+
+  useEffect(() => {
+    const { button } = clickedButton;
+    const getDoneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+    if (getDoneRecipes !== null && button === 'Meals') {
+      const filteredMeals = getDoneRecipes.filter((recipe) => recipe.type === 'meal');
+      setDoneRecipes(filteredMeals);
+    } else if (getDoneRecipes !== null && button === 'Drinks') {
+      const filteredDrinks = getDoneRecipes.filter((recipe) => recipe.type === 'drink');
+      setDoneRecipes(filteredDrinks);
+    } else if (getDoneRecipes !== null && button === 'All') {
+      setDoneRecipes(getDoneRecipes);
+    }
+  }, [clickedButton]);
+
+  const handleFilterClick = ({ target }) => {
+    const { name, value } = target;
+    setClickedButton({
+      ...clickedButton,
+      [name]: value,
+    });
+  };
   return (
     <section>
       <Header
@@ -18,21 +43,30 @@ function DoneRecipes() {
       <div>
         <button
           type="button"
+          name="button"
           data-testid="filter-by-all-btn"
+          value="All"
+          onClick={ handleFilterClick }
         >
           All
         </button>
 
         <button
           type="button"
+          name="button"
           data-testid="filter-by-meal-btn"
+          value="Meals"
+          onClick={ handleFilterClick }
         >
           Meals
         </button>
 
         <button
           type="button"
+          name="button"
           data-testid="filter-by-drink-btn"
+          value="Drinks"
+          onClick={ handleFilterClick }
         >
           Drinks
         </button>
