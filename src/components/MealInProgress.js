@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import copy from 'clipboard-copy';
 import whiteHeart from '../images/whiteHeartIcon.svg';
 import blackHeart from '../images/blackHeartIcon.svg';
@@ -8,12 +9,14 @@ import CheckBox from './CheckBox';
 
 function MealInProgress(props) {
   const { details } = props;
+  const history = useHistory();
   const { strMeal,
     strCategory,
     strMealThumb,
     strInstructions,
     idMeal,
     strArea,
+    strTags,
   } = details;
   const [isThisMealFavorited, setIsThisMealFavorited] = useState(false);
   const [isThisMealShared, setIsThisMealShared] = useState(false);
@@ -32,8 +35,22 @@ function MealInProgress(props) {
   }, [idMeal]);
 
   useEffect(() => {
+    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+    if (!doneRecipes) {
+      localStorage.setItem('doneRecipes', JSON.stringify([]));
+    }
+  }, []);
+
+  useEffect(() => {
     setCheckedSteps(count);
   }, [count]);
+
+  const handleTags = () => {
+    if (strTags === null) {
+      return [];
+    }
+    return strTags.split(',');
+  };
 
   const handleFavoriteClick = () => {
     const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
@@ -64,90 +81,50 @@ function MealInProgress(props) {
     setIsThisMealShared(true);
   };
 
-  const { strIngredient1,
-    strIngredient2,
-    strIngredient3,
-    strIngredient4,
-    strIngredient5,
-    strIngredient6,
-    strIngredient7,
-    strIngredient8,
-    strIngredient9,
-    strIngredient10,
-    strIngredient11,
-    strIngredient12,
-    strIngredient13,
-    strIngredient14,
-    strIngredient15,
-    strIngredient16,
-    strIngredient17,
-    strIngredient18,
-    strIngredient19,
+  const handleFinishClick = () => {
+    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+    const findDoneRecipe = doneRecipes.some((meal) => meal.id === idMeal);
+    if (findDoneRecipe) {
+      history.push('/done-recipes');
+    } else {
+      const doneObject = {
+        id: idMeal,
+        type: 'meal',
+        nationality: strArea,
+        category: strCategory,
+        alcoholicOrNot: '',
+        name: strMeal,
+        image: strMealThumb,
+        doneDate: new Date(),
+        tags: handleTags(),
+      };
+      doneRecipes.push(doneObject);
+      localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
+      history.push('/done-recipes');
+    }
+  };
+
+  const { strIngredient1, strIngredient2, strIngredient3, strIngredient4, strIngredient5,
+    strIngredient6, strIngredient7, strIngredient8, strIngredient9, strIngredient10,
+    strIngredient11, strIngredient12, strIngredient13, strIngredient14, strIngredient15,
+    strIngredient16, strIngredient17, strIngredient18, strIngredient19,
     strIngredient20 } = details;
 
-  const { strMeasure1,
-    strMeasure2,
-    strMeasure3,
-    strMeasure4,
-    strMeasure5,
-    strMeasure6,
-    strMeasure7,
-    strMeasure8,
-    strMeasure9,
-    strMeasure10,
-    strMeasure11,
-    strMeasure12,
-    strMeasure13,
-    strMeasure14,
-    strMeasure15,
-    strMeasure16,
-    strMeasure17,
-    strMeasure18,
-    strMeasure19,
-    strMeasure20,
-  } = details;
+  const { strMeasure1, strMeasure2, strMeasure3, strMeasure4, strMeasure5,
+    strMeasure6, strMeasure7, strMeasure8, strMeasure9, strMeasure10, strMeasure11,
+    strMeasure12, strMeasure13, strMeasure14, strMeasure15, strMeasure16, strMeasure17,
+    strMeasure18, strMeasure19, strMeasure20 } = details;
 
-  const measureArray = [strMeasure1,
-    strMeasure2,
-    strMeasure3,
-    strMeasure4,
-    strMeasure5,
-    strMeasure6,
-    strMeasure7,
-    strMeasure8,
-    strMeasure9,
-    strMeasure10,
-    strMeasure11,
-    strMeasure12,
-    strMeasure13,
-    strMeasure14,
-    strMeasure15,
-    strMeasure16,
-    strMeasure17,
-    strMeasure18,
-    strMeasure19,
-    strMeasure20];
+  const measureArray = [strMeasure1, strMeasure2, strMeasure3, strMeasure4,
+    strMeasure5, strMeasure6, strMeasure7, strMeasure8, strMeasure9, strMeasure10,
+    strMeasure11, strMeasure12, strMeasure13, strMeasure14, strMeasure15, strMeasure16,
+    strMeasure17, strMeasure18, strMeasure19, strMeasure20];
 
-  const ingredientsArray = [strIngredient1,
-    strIngredient2,
-    strIngredient3,
-    strIngredient4,
-    strIngredient5,
-    strIngredient6,
-    strIngredient7,
-    strIngredient8,
-    strIngredient9,
-    strIngredient10,
-    strIngredient11,
-    strIngredient12,
-    strIngredient13,
-    strIngredient14,
-    strIngredient15,
-    strIngredient16,
-    strIngredient17,
-    strIngredient18,
-    strIngredient19,
-    strIngredient20];
+  const ingredientsArray = [strIngredient1, strIngredient2, strIngredient3,
+    strIngredient4, strIngredient5, strIngredient6, strIngredient7, strIngredient8,
+    strIngredient9, strIngredient10, strIngredient11, strIngredient12, strIngredient13,
+    strIngredient14, strIngredient15, strIngredient16, strIngredient17, strIngredient18,
+    strIngredient19, strIngredient20];
 
   const filteredIngredients = ingredientsArray
     .filter((e) => e !== '' && e !== null && e !== false && e !== ' ');
@@ -207,7 +184,6 @@ function MealInProgress(props) {
         </ul>
         <h4>Instructions</h4>
         <p data-testid="instructions">{strInstructions}</p>
-
       </div>
       <div className="finish-button-container">
         <button
@@ -215,7 +191,7 @@ function MealInProgress(props) {
           type="button"
           className="finish-button"
           disabled={ arrayToMap.length !== checkedSteps }
-          // onClick={ handleClick }
+          onClick={ handleFinishClick }
         >
           Finish Recipe
         </button>
