@@ -29,16 +29,6 @@ function RecipeInProgress() {
             : <DrinkInProgress key={ `progress-drink-${i}` } details={ details } />
         ))}
       </div>
-      <div className="start-button-container">
-        <button
-          data-testid="finish-recipe-btn"
-          type="button"
-          className="finish-button"
-          // onClick={ handleClick }
-        >
-          Finish Recipe
-        </button>
-      </div>
     </section>
   );
 }

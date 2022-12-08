@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import copy from 'clipboard-copy';
 import whiteHeart from '../images/whiteHeartIcon.svg';
 import blackHeart from '../images/blackHeartIcon.svg';
@@ -16,6 +17,8 @@ function DrinkInProgress(props) {
   } = details;
   const [isThisDrinkFavorited, setIsThisDrinkFavorited] = useState(false);
   const [isThisDrinkShared, setIsThisDrinkShared] = useState(false);
+  const [checkedSteps, setCheckedSteps] = useState(0);
+  const count = useSelector((state) => state.getCurrentStepsReducer.count);
 
   useEffect(() => {
     const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
@@ -27,6 +30,10 @@ function DrinkInProgress(props) {
       setIsThisDrinkFavorited(findFavoriteDrink);
     }
   }, [idDrink]);
+
+  useEffect(() => {
+    setCheckedSteps(count);
+  }, [count]);
 
   const handleFavoriteClick = () => {
     const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
@@ -186,6 +193,17 @@ function DrinkInProgress(props) {
         </ul>
         <h4>Instructions</h4>
         <p data-testid="instructions">{strInstructions}</p>
+      </div>
+      <div className="finish-button-container">
+        <button
+          data-testid="finish-recipe-btn"
+          type="button"
+          className="finish-button"
+          disabled={ arrayToMap.length !== checkedSteps }
+          // onClick={ handleClick }
+        >
+          Finish Recipe
+        </button>
       </div>
     </section>
   );
