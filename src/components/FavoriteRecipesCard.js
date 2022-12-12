@@ -1,15 +1,16 @@
 import copy from 'clipboard-copy';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import blackHeart from '../images/blackHeartIcon.svg';
 import Share from '../images/shareIcon.svg';
 
-function DoneRecipesCard(props) {
+function FavoriteRecipesCard(props) {
   const { recipe, index } = props;
   const [isThisRecipeShared, setIsThisRecipeShared] = useState(false);
 
   const handleShareClick = () => {
     setIsThisRecipeShared(true);
-    const url = window.location.href.split('done-recipes')[0];
+    const url = window.location.href.split('favorite-recipes')[0];
     if (recipe.type === 'meal') {
       const mealUrl = url.concat('', `meals/${recipe.id}`);
       copy(mealUrl);
@@ -47,18 +48,6 @@ function DoneRecipesCard(props) {
         </p>
       )}
 
-      <p data-testid={ `${index}-horizontal-done-date` }>{recipe.doneDate}</p>
-
-      {recipe.type === 'meal'
-      && (
-        recipe.tags.map((tag, i) => (
-          <p
-            data-testid={ `${index}-${tag}-horizontal-tag` }
-            key={ `tag-${i}` }
-          >
-            {tag}
-          </p>))
-      )}
       {isThisRecipeShared && <p>Link copied!</p>}
       <button
         type="button"
@@ -68,10 +57,20 @@ function DoneRecipesCard(props) {
       >
         <img src={ Share } alt="share-icon" />
       </button>
+      <button
+        type="button"
+        data-testid={ `${index}-horizontal-favorite-btn` }
+        src={ blackHeart }
+      >
+        <img
+          src={ blackHeart }
+          alt="unfavorite meal"
+        />
+      </button>
     </div>
   );
 }
 
-DoneRecipesCard.propTypes = {}.isRequired;
+FavoriteRecipesCard.propTypes = {}.isRequired;
 
-export default DoneRecipesCard;
+export default FavoriteRecipesCard;
