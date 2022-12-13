@@ -1,12 +1,23 @@
 import copy from 'clipboard-copy';
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import blackHeart from '../images/blackHeartIcon.svg';
 import Share from '../images/shareIcon.svg';
+import { getCurrentFavorites } from '../redux/actions';
 
 function FavoriteRecipesCard(props) {
   const { recipe, index } = props;
+  const { id } = recipe;
   const [isThisRecipeShared, setIsThisRecipeShared] = useState(false);
+  const dispatch = useDispatch();
+
+  const handleUnfavoriteClick = () => {
+    const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    const filteredFavorites = favoriteRecipes.filter((subject) => subject.id !== id);
+    localStorage.setItem('favoriteRecipes', JSON.stringify(filteredFavorites));
+    dispatch(getCurrentFavorites(filteredFavorites.length));
+  };
 
   const handleShareClick = () => {
     setIsThisRecipeShared(true);
@@ -60,6 +71,7 @@ function FavoriteRecipesCard(props) {
       <button
         type="button"
         data-testid={ `${index}-horizontal-favorite-btn` }
+        onClick={ handleUnfavoriteClick }
         src={ blackHeart }
       >
         <img

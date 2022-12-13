@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import FavoriteRecipesCard from '../components/FavoriteRecipesCard';
 import Header from '../components/Header';
 
 function FavoriteRecipes() {
   const [favoriteRecipes, setFavoriteRecipes] = useState([]);
-  const [clickedButton, setClickedButton] = useState({
-    button: '',
-  });
+  const [clickedButton, setClickedButton] = useState({ button: '' });
+  const count = useSelector((state) => state.getCurrentFavoritesReducer.count);
+
   useEffect(() => {
     const getFavRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
     if (getFavRecipes !== null) {
       setFavoriteRecipes(getFavRecipes);
     }
-  }, []);
+  }, [count]);
 
   useEffect(() => {
     const { button } = clickedButton;
@@ -26,7 +27,7 @@ function FavoriteRecipes() {
     } else if (getFavRecipes !== null && button === 'All') {
       setFavoriteRecipes(getFavRecipes);
     }
-  }, [clickedButton]);
+  }, [clickedButton, count]);
 
   const handleFilterClick = ({ target }) => {
     const { name, value } = target;
