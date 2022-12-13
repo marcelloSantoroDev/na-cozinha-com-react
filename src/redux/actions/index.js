@@ -4,6 +4,7 @@ export const GET_CATEGORIES = 'GET_CATEGORIES';
 export const GET_RECIPE_DETAILS = 'GET_RECIPE_DETAILS';
 export const GET_RECOMENDATIONS = 'GET_RECOMENDATIONS';
 export const GET_CURRENT_STEPS = 'GET_CURRENT_STEPS';
+export const GET_CURRENT_FAVORITES = 'GET_CURRENT_FAVORITES';
 
 export const getEmail = (userEmail) => ({
   type: GET_EMAIL,
@@ -33,6 +34,11 @@ export const getRecomendations = (recomendations) => ({
 export const getCurrentSteps = (currentSteps) => ({
   type: GET_CURRENT_STEPS,
   currentSteps,
+});
+
+export const getCurrentFavorites = (currentFavorites) => ({
+  type: GET_CURRENT_FAVORITES,
+  currentFavorites,
 });
 
 export const thunkToRenderMealsRecipes = () => async (dispatch) => {
