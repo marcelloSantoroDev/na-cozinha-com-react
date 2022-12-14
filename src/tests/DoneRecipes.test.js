@@ -1,15 +1,17 @@
 import { screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { act } from 'react-dom/test-utils';
-import copy from 'clipboard-copy';
 import App from '../App';
 import { renderWithRouterAndRedux } from './helpers/renderWith';
+
+const url = 'https://www.themealdb.com/images/media/meals/58oia61564916529.jpg';
+const doneRecipesPath = '/done-recipes';
 
 const localStorageArray = [{
   nationality: 'Turkish',
   category: 'Soup',
   name: 'Corba',
-  image: 'https://www.themealdb.com/images/media/meals/58oia61564916529.jpg',
+  image: url,
   id: '52977',
   type: 'meal',
   tags: ['alou'],
@@ -19,7 +21,7 @@ const localStorageArray2 = [{
   nationality: 'Turkish',
   category: 'Soup',
   name: 'Corba',
-  image: 'https://www.themealdb.com/images/media/meals/58oia61564916529.jpg',
+  image: url,
   id: '52977',
   type: 'drink',
   tags: [],
@@ -30,7 +32,7 @@ describe('testes de tela feitas - meals', () => {
     localStorage.setItem('doneRecipes', JSON.stringify(localStorageArray));
     const { history } = renderWithRouterAndRedux(<App />);
     act(() => {
-      history.push('/done-recipes');
+      history.push(doneRecipesPath);
     });
 
     expect(await screen.findByRole('heading', { name: /done recipes/i })).toBeInTheDocument();
@@ -58,7 +60,7 @@ describe('testes de tela feitas - meals', () => {
     localStorage.setItem('doneRecipes', JSON.stringify(localStorageArray));
     const { history } = renderWithRouterAndRedux(<App />);
     act(() => {
-      history.push('/done-recipes');
+      history.push(doneRecipesPath);
     });
 
     const link = await screen.findByRole('link', {
@@ -82,7 +84,7 @@ describe('testes de tela feitas - meals', () => {
 
     const { history } = renderWithRouterAndRedux(<App />);
     act(() => {
-      history.push('/done-recipes');
+      history.push(doneRecipesPath);
     });
 
     const shareBtn = screen.getByRole('button', { name: /share/i });
@@ -98,7 +100,7 @@ describe('testes de tela feitas - meals', () => {
 
     const { history } = renderWithRouterAndRedux(<App />);
     act(() => {
-      history.push('/done-recipes');
+      history.push(doneRecipesPath);
     });
 
     expect(await screen.findByText('alou')).toBeInTheDocument();
@@ -110,7 +112,7 @@ describe('testes de tela feitas - drinks', () => {
     localStorage.setItem('doneRecipes', JSON.stringify(localStorageArray2));
     const { history } = renderWithRouterAndRedux(<App />);
     act(() => {
-      history.push('/done-recipes');
+      history.push(doneRecipesPath);
     });
 
     const link = await screen.findByRole('link', {
@@ -133,7 +135,7 @@ describe('testes de tela feitas - drinks', () => {
 
     const { history } = renderWithRouterAndRedux(<App />);
     act(() => {
-      history.push('/done-recipes');
+      history.push(doneRecipesPath);
     });
 
     const shareBtn = screen.getByRole('button', { name: /share/i });

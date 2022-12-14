@@ -94,6 +94,17 @@ describe('testes da tela principal - rota /meals', () => {
     userEvent.click(beefButton);
     expect(recipeIndexZero.innerText).toBe('Mbuzi Choma (Roasted Goat)');
   });
+  test('6', async () => {
+    const { history } = renderWithRouterAndRedux(<App />);
+    act(() => {
+      history.push('/meals');
+    });
+
+    const beefButton = await screen.findByRole('button', { name: /all/i });
+    expect(beefButton).toBeInTheDocument();
+
+    userEvent.click(beefButton);
+  });
 });
 
 describe('testes da tela principal - rota /drinks', () => {
@@ -175,5 +186,16 @@ describe('testes da tela principal - rota /drinks', () => {
 
     userEvent.click(beefButton);
     expect(recipeIndexZero.innerText).toBe('Castillian Hot Chocolate');
+  });
+  test('6', async () => {
+    const { history } = renderWithRouterAndRedux(<App />);
+    act(() => {
+      history.push('/drinks');
+    });
+
+    const beefButton = await screen.findByRole('button', { name: /all/i });
+    expect(beefButton).toBeInTheDocument();
+
+    userEvent.click(beefButton);
   });
 });
