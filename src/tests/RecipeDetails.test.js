@@ -91,5 +91,9 @@ describe('testes tela de detalhes - drinks', () => {
     act(() => {
       history.push(drinkPathString);
     });
+
+    expect(await screen.findByRole('img', { name: /corba/i })).toBeInTheDocument();
+    expect(await screen.findByRole('img', { name: /burek/i })).toBeInTheDocument();
+    // expect(await screen.findByRole('img', { name: /sushi/i })).toBeInTheDocument();
   });
 });
