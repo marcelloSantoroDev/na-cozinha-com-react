@@ -10,6 +10,8 @@ const mealPathString = '/meals/52977';
 
 const drinkPathString = '/drinks/13501';
 
+const drinkLocalStorageMock = { drinks: { 15997: [0, 1, 2] }, meals: {} };
+
 describe('testes tela de detalhes - meals', () => {
   test('1', async () => {
     const { history } = renderWithRouterAndRedux(<App />);
@@ -49,6 +51,7 @@ describe('testes tela de detalhes - meals', () => {
 
 describe('testes tela de detalhes - drinks', () => {
   test('1', async () => {
+    localStorage.setItem('inProgressRecipes', JSON.stringify(drinkLocalStorageMock));
     const { history } = renderWithRouterAndRedux(<App />);
     act(() => {
       history.push(drinkPathString);
@@ -60,10 +63,13 @@ describe('testes tela de detalhes - drinks', () => {
     expect(await screen.findByRole('button', { name: /start recipe/i })).toBeInTheDocument();
   });
   test('2', async () => {
+    localStorage.setItem('inProgressRecipes', JSON.stringify(drinkLocalStorageMock));
     const { history } = renderWithRouterAndRedux(<App />);
     act(() => {
       history.push(drinkPathString);
     });
+
+    expect(history.location.pathname).toBe(drinkPathString);
     const favoriteButton = await screen.findByTestId(favoriteString);
     const startRecipe = await screen.findByRole('button', { name: /start recipe/i });
     userEvent.click(favoriteButton);
