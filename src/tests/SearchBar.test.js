@@ -168,11 +168,11 @@ describe('testes de meals', () => {
     expect(inputSearch).toBeInTheDocument();
     userEvent.type(inputSearch, 'fetuccine');
 
-    // const buttonRadioName = await screen.findByRole('radio', { name: /name/i });
-    // userEvent.click(buttonRadioName);
-    // await waitFor(() => {
-    //   expect(global.alert).toHaveBeenCalled();
-    // });
+    const buttonRadioName = await screen.findByRole('radio', { name: /name/i });
+    userEvent.click(buttonRadioName);
+    await waitFor(() => {
+      expect(global.alert).toHaveBeenCalled();
+    });
   });
 });
 
@@ -193,13 +193,13 @@ describe('testes de drinks', () => {
 
     const buttonRadioName = await screen.findByRole('radio', { name: /name/i });
     expect(buttonRadioName).toBeInTheDocument();
-    // userEvent.click(buttonRadioName);
+    userEvent.click(buttonRadioName);
 
-    // const buttonSearch = await screen.findByTestId(stringSearch);
-    // userEvent.click(buttonSearch);
+    const buttonSearch = await screen.findByTestId(stringSearch);
+    userEvent.click(buttonSearch);
 
-    // const recipe = await screen.findByText('Sherry Flip');
-    // expect(recipe).toBeInTheDocument();
+    const recipe = await screen.findByText('Sherry Flip');
+    expect(recipe).toBeInTheDocument();
   });
 
   test('8', async () => {
@@ -303,8 +303,8 @@ describe('testes de drinks', () => {
     userEvent.click(buttonRadioName);
     userEvent.click(buttonSearch);
 
-    // await waitFor(() => {
-    //   expect(global.alert).toHaveBeenCalled();
-    // });
+    await waitFor(() => {
+      expect(global.alert).toHaveBeenCalled();
+    });
   });
 });

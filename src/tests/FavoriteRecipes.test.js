@@ -4,6 +4,8 @@ import { act } from 'react-dom/test-utils';
 import App from '../App';
 import { renderWithRouterAndRedux } from './helpers/renderWith';
 
+const favoritePath = '/favorite-recipes';
+
 const localStorageArray = [
   { id: '52977',
     type: 'meal',
@@ -27,7 +29,7 @@ describe('Testes da tela "FavoriteRecipes.js":', () => {
     localStorage.setItem('favoriteRecipes', JSON.stringify(localStorageArray));
     const { history } = renderWithRouterAndRedux(<App />);
     act(() => {
-      history.push('/favorite-recipes');
+      history.push(favoritePath);
     });
 
     expect(await screen.findByRole('heading', { name: /favorite recipes/i })).toBeInTheDocument();
@@ -43,7 +45,7 @@ describe('Testes da tela "FavoriteRecipes.js":', () => {
     localStorage.setItem('favoriteRecipes', JSON.stringify(localStorageArray));
     const { history } = renderWithRouterAndRedux(<App />);
     act(() => {
-      history.push('/favorite-recipes');
+      history.push(favoritePath);
     });
 
     const shareClick = await screen.findByTestId('0-horizontal-share-btn');
@@ -59,7 +61,7 @@ describe('Testes da tela "FavoriteRecipes.js":', () => {
     localStorage.setItem('favoriteRecipes', JSON.stringify(localStorageArray));
     const { history } = renderWithRouterAndRedux(<App />);
     act(() => {
-      history.push('/favorite-recipes');
+      history.push(favoritePath);
     });
 
     const shareClick = await screen.findByTestId('0-horizontal-share-btn');
@@ -74,7 +76,7 @@ describe('Testes da tela "FavoriteRecipes.js":', () => {
     localStorage.setItem('favoriteRecipes', JSON.stringify(localStorageArray));
     const { history } = renderWithRouterAndRedux(<App />);
     act(() => {
-      history.push('/favorite-recipes');
+      history.push(favoritePath);
     });
 
     const shareClick = await screen.findByTestId('1-horizontal-share-btn');
