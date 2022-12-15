@@ -15,8 +15,6 @@ function RecipeDetails() {
   const [recipeId, setRecipeId] = useState(false);
   const [recipeInProgress, setRecipeInProgress] = useState(false);
 
-  console.log(recipeDetails);
-
   useEffect(() => {
     const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
     if (doneRecipes !== null) {

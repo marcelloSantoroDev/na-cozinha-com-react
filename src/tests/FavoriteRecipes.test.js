@@ -24,6 +24,10 @@ const localStorageArray = [
 ];
 
 describe('Testes da tela "FavoriteRecipes.js":', () => {
+  afterEach(() => {
+    localStorage.removeItem('favoriteRecipes');
+  });
+
   global.execCommand = jest.fn();
   test('1), verifica elementos renderizados:', async () => {
     localStorage.setItem('favoriteRecipes', JSON.stringify(localStorageArray));

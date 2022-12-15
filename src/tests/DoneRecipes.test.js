@@ -28,6 +28,12 @@ const localStorageArray2 = [{
 }];
 
 describe('testes de tela feitas - meals', () => {
+  afterEach(() => {
+    localStorage.removeItem('doneRecipes');
+  });
+
+  global.execCommand = jest.fn();
+
   test('1', async () => {
     localStorage.setItem('doneRecipes', JSON.stringify(localStorageArray));
     const { history } = renderWithRouterAndRedux(<App />);
@@ -72,14 +78,9 @@ describe('testes de tela feitas - meals', () => {
   });
 
   test('3', async () => {
-    // referência https://erikmartinjordan.com/mock-up-jest-clipboardqq
-    const random = 'Random text from the clipboard';
-
-    Object.assign(navigator, {
-      clipboard: {
-        writeText: () => random,
-      },
-    });
+    global.navigator.clipboard = {
+      writeText: jest.fn(),
+    };
     localStorage.setItem('doneRecipes', JSON.stringify(localStorageArray));
 
     const { history } = renderWithRouterAndRedux(<App />);
@@ -108,6 +109,12 @@ describe('testes de tela feitas - meals', () => {
 });
 
 describe('testes de tela feitas - drinks', () => {
+  afterEach(() => {
+    localStorage.removeItem('doneRecipes');
+  });
+
+  global.execCommand = jest.fn();
+
   test('2', async () => {
     localStorage.setItem('doneRecipes', JSON.stringify(localStorageArray2));
     const { history } = renderWithRouterAndRedux(<App />);
@@ -123,14 +130,9 @@ describe('testes de tela feitas - drinks', () => {
     expect(history.location.pathname).toBe('/drinks/52977');
   });
   test('3', async () => {
-    // referência https://erikmartinjordan.com/mock-up-jest-clipboardqq
-    const random = 'Random text from the clipboard';
-
-    Object.assign(navigator, {
-      clipboard: {
-        writeText: () => random,
-      },
-    });
+    global.navigator.clipboard = {
+      writeText: jest.fn(),
+    };
     localStorage.setItem('doneRecipes', JSON.stringify(localStorageArray2));
 
     const { history } = renderWithRouterAndRedux(<App />);

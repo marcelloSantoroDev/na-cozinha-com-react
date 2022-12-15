@@ -1,4 +1,4 @@
-import { screen } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { act } from 'react-dom/test-utils';
 import App from '../App';
@@ -29,72 +29,86 @@ describe('testes da tela principal - rota /meals', () => {
     });
     expect(await screen.findByText(/corba/i)).toBeInTheDocument();
   });
+
   test('2', async () => {
     const { history } = renderWithRouterAndRedux(<App />);
     act(() => {
       history.push('/meals');
     });
-    const recipeIndexZero = await screen.findByTestId(testIdString);
 
     const beefButton = await screen.findByRole('button', { name: /beef/i });
     expect(beefButton).toBeInTheDocument();
 
     userEvent.click(beefButton);
-    expect(recipeIndexZero.innerText).toBe('Beef and Mustard Pie');
+    await waitFor(() => {
+      const recipeIndexZero = screen.getByTestId(testIdString);
+      expect(recipeIndexZero).toHaveTextContent('Beef and Mustard Pie');
+    });
   });
   test('3', async () => {
     const { history } = renderWithRouterAndRedux(<App />);
     act(() => {
       history.push('/meals');
     });
-    const recipeIndexZero = await screen.findByTestId(testIdString);
 
     const beefButton = await screen.findByRole('button', { name: /breakfast/i });
     expect(beefButton).toBeInTheDocument();
 
     userEvent.click(beefButton);
-    expect(recipeIndexZero.innerText).toBe('Breakfast Potatoes');
+    await waitFor(() => {
+      const recipeIndexZero = screen.getByTestId(testIdString);
+      expect(recipeIndexZero).toHaveTextContent('Breakfast Potatoes');
+    });
   });
   test('4', async () => {
     const { history } = renderWithRouterAndRedux(<App />);
     act(() => {
       history.push('/meals');
     });
-    const recipeIndexZero = await screen.findByTestId(testIdString);
 
-    const beefButton = await screen.findByRole('button', { name: /chicken/i });
+    const beefButton = await screen.findByRole('button', { name: 'Chicken' });
     expect(beefButton).toBeInTheDocument();
 
     userEvent.click(beefButton);
-    expect(recipeIndexZero.innerText).toBe('Ayam Percik');
+    await waitFor(() => {
+      const recipeIndexZero = screen.getByTestId(testIdString);
+      expect(recipeIndexZero).toHaveTextContent('Ayam Percik');
+    });
   });
+
   test('5', async () => {
     const { history } = renderWithRouterAndRedux(<App />);
     act(() => {
       history.push('/meals');
     });
-    const recipeIndexZero = await screen.findByTestId(testIdString);
 
     const beefButton = await screen.findByRole('button', { name: /dessert/i });
     expect(beefButton).toBeInTheDocument();
 
     userEvent.click(beefButton);
-    expect(recipeIndexZero.innerText).toBe('Apam Balik');
+    await waitFor(() => {
+      const recipeIndexZero = screen.getByTestId(testIdString);
+      expect(recipeIndexZero).toHaveTextContent('Apam balik');
+    });
   });
+
   test('6', async () => {
     const { history } = renderWithRouterAndRedux(<App />);
     act(() => {
       history.push('/meals');
     });
-    const recipeIndexZero = await screen.findByTestId(testIdString);
 
     const beefButton = await screen.findByRole('button', { name: /goat/i });
     expect(beefButton).toBeInTheDocument();
 
     userEvent.click(beefButton);
-    expect(recipeIndexZero.innerText).toBe('Mbuzi Choma (Roasted Goat)');
+    await waitFor(() => {
+      const recipeIndexZero = screen.getByTestId(testIdString);
+      expect(recipeIndexZero).toHaveTextContent('Mbuzi Choma (Roasted Goat)');
+    });
   });
-  test('6', async () => {
+
+  test('7', async () => {
     const { history } = renderWithRouterAndRedux(<App />);
     act(() => {
       history.push('/meals');
@@ -104,6 +118,10 @@ describe('testes da tela principal - rota /meals', () => {
     expect(beefButton).toBeInTheDocument();
 
     userEvent.click(beefButton);
+    await waitFor(() => {
+      const recipeIndexZero = screen.getByTestId(testIdString);
+      expect(recipeIndexZero).toHaveTextContent('Corba');
+    });
   });
 });
 
@@ -127,67 +145,77 @@ describe('testes da tela principal - rota /drinks', () => {
     act(() => {
       history.push('/drinks');
     });
-    const recipeIndexZero = await screen.findByTestId(testIdString);
 
     const beefButton = await screen.findByRole('button', { name: /ordinary drink/i });
     expect(beefButton).toBeInTheDocument();
 
     userEvent.click(beefButton);
-    expect(recipeIndexZero.innerText).toBe('3-Mile Long Island Iced Tea');
+    await waitFor(() => {
+      const recipeIndexZero = screen.getByTestId(testIdString);
+      expect(recipeIndexZero).toHaveTextContent('3-Mile Long Island Iced Tea');
+    });
   });
   test('4', async () => {
     const { history } = renderWithRouterAndRedux(<App />);
     act(() => {
       history.push('/drinks');
     });
-    const recipeIndexZero = await screen.findByTestId(testIdString);
 
     const beefButton = await screen.findByRole('button', { name: /cocktail/i });
     expect(beefButton).toBeInTheDocument();
 
     userEvent.click(beefButton);
-    expect(recipeIndexZero.innerText).toBe('155 Belmont');
+    await waitFor(() => {
+      const recipeIndexZero = screen.getByTestId(testIdString);
+      expect(recipeIndexZero).toHaveTextContent('155 Belmont');
+    });
   });
-  test('3', async () => {
+  test('5', async () => {
     const { history } = renderWithRouterAndRedux(<App />);
     act(() => {
       history.push('/drinks');
     });
-    const recipeIndexZero = await screen.findByTestId(testIdString);
 
     const beefButton = await screen.findByRole('button', { name: /shake/i });
     expect(beefButton).toBeInTheDocument();
 
     userEvent.click(beefButton);
-    expect(recipeIndexZero.innerText).toBe('151 Florida Bushwacker');
-  });
-  test('3', async () => {
-    const { history } = renderWithRouterAndRedux(<App />);
-    act(() => {
-      history.push('/drinks');
+    await waitFor(() => {
+      const recipeIndexZero = screen.getByTestId(testIdString);
+      expect(recipeIndexZero).toHaveTextContent('151 Florida Bushwacker');
     });
-    const recipeIndexZero = await screen.findByTestId(testIdString);
-
-    const beefButton = await screen.findByRole('button', { name: 'Other/Unknown' });
-    expect(beefButton).toBeInTheDocument();
-
-    userEvent.click(beefButton);
-    expect(recipeIndexZero.innerText).toBe('A Piece of Ass');
-  });
-  test('3', async () => {
-    const { history } = renderWithRouterAndRedux(<App />);
-    act(() => {
-      history.push('/drinks');
-    });
-    const recipeIndexZero = await screen.findByTestId(testIdString);
-
-    const beefButton = await screen.findByRole('button', { name: /cocoa/i });
-    expect(beefButton).toBeInTheDocument();
-
-    userEvent.click(beefButton);
-    expect(recipeIndexZero.innerText).toBe('Castillian Hot Chocolate');
   });
   test('6', async () => {
+    const { history } = renderWithRouterAndRedux(<App />);
+    act(() => {
+      history.push('/drinks');
+    });
+
+    const beefButton = await screen.findByRole('button', { name: 'Other / Unknown' });
+    expect(beefButton).toBeInTheDocument();
+
+    userEvent.click(beefButton);
+    await waitFor(() => {
+      const recipeIndexZero = screen.getByTestId(testIdString);
+      expect(recipeIndexZero).toHaveTextContent('A Piece of Ass');
+    });
+  });
+  test('7', async () => {
+    const { history } = renderWithRouterAndRedux(<App />);
+    act(() => {
+      history.push('/drinks');
+    });
+
+    const beefButton = await screen.findByRole('button', { name: 'Cocoa' });
+    expect(beefButton).toBeInTheDocument();
+
+    userEvent.click(beefButton);
+    await waitFor(() => {
+      const recipeIndexZero = screen.getByTestId(testIdString);
+      expect(recipeIndexZero).toHaveTextContent('Castillian Hot Chocolate');
+    });
+  });
+  test('8', async () => {
     const { history } = renderWithRouterAndRedux(<App />);
     act(() => {
       history.push('/drinks');
@@ -197,5 +225,9 @@ describe('testes da tela principal - rota /drinks', () => {
     expect(beefButton).toBeInTheDocument();
 
     userEvent.click(beefButton);
+    await waitFor(() => {
+      const recipeIndexZero = screen.getByTestId(testIdString);
+      expect(recipeIndexZero).toHaveTextContent('GG');
+    });
   });
 });
