@@ -22,7 +22,6 @@ function DrinkRecipeDetailsCard(props) {
   const [isThisDrinkFavorited, setIsThisDrinkFavorited] = useState(false);
   const [isThisDrinkShared, setIsThisDrinkShared] = useState(false);
   const SIX = 6;
-  console.log(details);
 
   useEffect(() => {
     const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));

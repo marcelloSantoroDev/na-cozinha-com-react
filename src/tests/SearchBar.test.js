@@ -145,6 +145,7 @@ describe('testes de meals', () => {
 
     const buttonSearch = await screen.findByTestId(stringSearch);
     userEvent.click(buttonSearch);
+
     await waitFor(() => {
       expect(history.location.pathname).toBe('/meals/52771');
     });
@@ -160,6 +161,7 @@ describe('testes de meals', () => {
     expect(history.location.pathname).toBe('/meals');
 
     const buttonSearchBar = await screen.findByRole('img', { name: /search icon/i });
+    expect(buttonSearchBar).toBeInTheDocument();
     userEvent.click(buttonSearchBar);
 
     const inputSearch = await screen.findByTestId(stringInput);
@@ -235,6 +237,7 @@ describe('testes de drinks', () => {
     expect(history.location.pathname).toBe('/drinks');
 
     const buttonSearchBar = await screen.findByRole('img', { name: /search icon/i });
+    expect(buttonSearchBar).toBeInTheDocument();
     userEvent.click(buttonSearchBar);
 
     const inputSearch = await screen.findByTestId(stringInput);
@@ -290,11 +293,12 @@ describe('testes de drinks', () => {
 
     expect(history.location.pathname).toBe('/meals');
     const buttonSearchBar = await screen.findByRole('img', { name: /search icon/i });
+    userEvent.click(buttonSearchBar);
+
     const inputSearch = await screen.findByTestId(stringInput);
     const buttonRadioName = await screen.findByRole('radio', { name: /name/i });
     const buttonSearch = await screen.findByTestId(stringSearch);
 
-    userEvent.click(buttonSearchBar);
     userEvent.type(inputSearch, 'lalala');
     userEvent.click(buttonRadioName);
     userEvent.click(buttonSearch);

@@ -42,6 +42,7 @@ function MealRecipeDetailsCard(props) {
 
   const handleFavoriteClick = () => {
     const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+
     const findFavoriteMeal = favoriteRecipes.some((meal) => meal.id === idMeal);
     if (findFavoriteMeal) {
       const filteredFavorites = favoriteRecipes.filter((recipe) => recipe.id !== idMeal);
