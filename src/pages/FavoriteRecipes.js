@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import FavoriteRecipesCard from '../components/FavoriteRecipesCard';
 import Header from '../components/Header';
