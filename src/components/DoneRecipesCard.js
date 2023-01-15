@@ -1,7 +1,8 @@
 import copy from 'clipboard-copy';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import Share from '../images/shareIcon.svg';
+import Share from '../images/share2.png';
+import '../pages/css/DoneRecipes.css';
 
 function DoneRecipesCard(props) {
   const { recipe, index } = props;
@@ -19,16 +20,18 @@ function DoneRecipesCard(props) {
     }
   };
   return (
-    <div>
+    <div className="done-list-container">
       <Link
         to={ recipe.type === 'meal' ? `/meals/${recipe.id}`
           : `/drinks/${recipe.id}` }
+        className="done-link"
       >
         <img
           data-testid={ `${index}-horizontal-image` }
           src={ recipe.image }
           alt="recipe-img"
           width="150px"
+          className="done-img"
         />
         <p data-testid={ `${index}-horizontal-name` }>{recipe.name}</p>
       </Link>

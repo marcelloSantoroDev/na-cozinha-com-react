@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import copy from 'clipboard-copy';
-import whiteHeart from '../images/whiteHeartIcon.svg';
-import blackHeart from '../images/blackHeartIcon.svg';
-import shareIcon from '../images/shareIcon.svg';
+import whiteHeart from '../images/whiteheart.png';
+import blackHeart from '../images/blackheart.png';
+import shareIcon from '../images/share.png';
 import CheckBox from './CheckBox';
+import './css/InProgress.css';
 
 function DrinkInProgress(props) {
   const { details } = props;
@@ -140,37 +141,39 @@ function DrinkInProgress(props) {
             data-testid="share-btn"
             src={ shareIcon }
             onClick={ handleShareClick }
+            className="details-btn"
           >
-            Share
-            <img src={ shareIcon } alt="share-icon" width="12px" />
+            <img src={ shareIcon } alt="share-icon" width="40px" />
           </button>
           <button
             type="button"
             data-testid="favorite-btn"
             onClick={ handleFavoriteClick }
             src={ isThisDrinkFavorited ? blackHeart : whiteHeart }
+            className="details-btn"
           >
-            Favorite
             <img
               src={ isThisDrinkFavorited ? blackHeart : whiteHeart }
               alt="unfavorited drink"
-              width="12px"
+              width="40px"
             />
           </button>
         </div>
-        { isThisDrinkShared && <p>Link copied!</p> }
-        <h1 data-testid="recipe-title">{strDrink}</h1>
-        <h4
+        { isThisDrinkShared && <p className="copied">Link copied!</p> }
+        <h1 data-testid="recipe-title" className="recipe-title">{strDrink}</h1>
+        <h5
           data-testid="recipe-category"
+          className="recipe-category"
         >
           {`Category: ${strCategory}, ${strAlcoholic}`}
 
-        </h4>
+        </h5>
         <img
           data-testid="recipe-photo"
           src={ strDrinkThumb }
           alt={ strDrink }
-          width="150px"
+          width="350px"
+          className="recipe-photo"
         />
         <ul>
           { arrayToMap.map((e, index) => (

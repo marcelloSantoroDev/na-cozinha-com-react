@@ -4,9 +4,10 @@ import copy from 'clipboard-copy';
 import { thunkToMealRecomendations } from '../redux/actions';
 import MealRecomendationsCard from './MealRecomendationsCard';
 import './css/Recomendations.css';
-import whiteHeart from '../images/whiteHeartIcon.svg';
-import blackHeart from '../images/blackHeartIcon.svg';
-import shareIcon from '../images/shareIcon.svg';
+import whiteHeart from '../images/whiteheart.png';
+import blackHeart from '../images/blackheart.png';
+import shareIcon from '../images/share.png';
+import '../pages/css/RecipeDetails.css';
 
 function DrinkRecipeDetailsCard(props) {
   const { details } = props;
@@ -149,51 +150,56 @@ function DrinkRecipeDetailsCard(props) {
             data-testid="share-btn"
             src={ shareIcon }
             onClick={ handleShareClick }
+            className="details-btn"
           >
-            Share
-            <img src={ shareIcon } alt="share-icon" width="12px" />
+            <img src={ shareIcon } alt="share-icon" width="40px" />
           </button>
           <button
             type="button"
             data-testid="favorite-btn"
             onClick={ handleFavoriteClick }
             src={ isThisDrinkFavorited ? blackHeart : whiteHeart }
+            className="details-btn"
           >
-            Favorite
             <img
               src={ isThisDrinkFavorited ? blackHeart : whiteHeart }
               alt="unfavorited drink"
-              width="12px"
+              width="40px"
             />
           </button>
         </div>
-        { isThisDrinkShared && <p>Link copied!</p> }
-        <h1 data-testid="recipe-title">{strDrink}</h1>
-        <h4
-          data-testid="recipe-category"
-        >
-          {`Category: ${strCategory}, ${strAlcoholic}`}
+        { isThisDrinkShared && <p className="copied">Link copied!</p> }
+        <div className="rcp-container">
+          <h1 data-testid="recipe-title" className="recipe-title">{strDrink}</h1>
+          <h5
+            data-testid="recipe-category"
+            className="recipe-category"
+          >
+            {`Category: ${strCategory}, ${strAlcoholic}`}
 
-        </h4>
-        <img
-          data-testid="recipe-photo"
-          src={ strDrinkThumb }
-          alt={ strDrink }
-          width="150px"
-        />
-        <ul>
-          { arrayToMap.map((e, index) => (
-            <li
-              data-testid={ `${index}-ingredient-name-and-measure` }
-              key={ e + index }
-            >
-              {e}
+          </h5>
+          <img
+            data-testid="recipe-photo"
+            src={ strDrinkThumb }
+            alt={ strDrink }
+            width="350px"
+            className="recipe-photo"
+          />
+          <ul>
+            { arrayToMap.map((e, index) => (
+              <li
+                className="ingredient-list"
+                data-testid={ `${index}-ingredient-name-and-measure` }
+                key={ e + index }
+              >
+                {e}
 
-            </li>
-          )) }
-        </ul>
-        <h4>Instructions</h4>
-        <p data-testid="instructions">{strInstructions}</p>
+              </li>
+            )) }
+          </ul>
+          <h4>Instructions</h4>
+          <p data-testid="instructions">{strInstructions}</p>
+        </div>
       </div>
       <div className="recomendations-container">
         {recomendations.filter((_e, i) => i < SIX).map((recomendation, index) => (

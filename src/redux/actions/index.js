@@ -5,6 +5,7 @@ export const GET_RECIPE_DETAILS = 'GET_RECIPE_DETAILS';
 export const GET_RECOMENDATIONS = 'GET_RECOMENDATIONS';
 export const GET_CURRENT_STEPS = 'GET_CURRENT_STEPS';
 export const GET_CURRENT_FAVORITES = 'GET_CURRENT_FAVORITES';
+export const LOADING = 'LOADING';
 
 export const getEmail = (userEmail) => ({
   type: GET_EMAIL,
@@ -41,11 +42,18 @@ export const getCurrentFavorites = (currentFavorites) => ({
   currentFavorites,
 });
 
+export const loading = (load) => ({
+  type: LOADING,
+  load,
+});
+
 export const thunkToRenderMealsRecipes = () => async (dispatch) => {
   // try {
+  dispatch(loading(true));
   const url = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
   const request = await fetch(url);
   const { meals } = await request.json();
+  dispatch(loading(false));
   dispatch(getRecipes(meals));
   // } catch (error) {
   //   throw new Error(error);
@@ -54,9 +62,11 @@ export const thunkToRenderMealsRecipes = () => async (dispatch) => {
 
 export const thunkToRenderDrinksRecipes = () => async (dispatch) => {
   // try {
+  dispatch(loading(true));
   const url = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
   const request = await fetch(url);
   const { drinks } = await request.json();
+  dispatch(loading(false));
   dispatch(getRecipes(drinks));
   // } catch (error) {
   //   throw new Error(error);

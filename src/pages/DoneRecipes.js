@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import DoneRecipesCard from '../components/DoneRecipesCard';
 import Header from '../components/Header';
+import './css/DoneRecipes.css';
 
 function DoneRecipes() {
   const [doneRecipes, setDoneRecipes] = useState([]);
@@ -40,13 +41,14 @@ function DoneRecipes() {
       <Header
         title="Done Recipes"
       />
-      <div>
+      <div className="done-btns-container">
         <button
           type="button"
           name="button"
           data-testid="filter-by-all-btn"
           value="All"
           onClick={ handleFilterClick }
+          className="done-btn"
         >
           All
         </button>
@@ -57,6 +59,7 @@ function DoneRecipes() {
           data-testid="filter-by-meal-btn"
           value="Meals"
           onClick={ handleFilterClick }
+          className="done-btn"
         >
           Meals
         </button>
@@ -67,6 +70,7 @@ function DoneRecipes() {
           data-testid="filter-by-drink-btn"
           value="Drinks"
           onClick={ handleFilterClick }
+          className="done-btn"
         >
           Drinks
         </button>

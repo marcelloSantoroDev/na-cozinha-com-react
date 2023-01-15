@@ -14,6 +14,7 @@ function RecipeCard(props) {
     <Link
       to={ `${pathname}/${id}` }
       data-testid={ `${index}-recipe-card` }
+      className="card-link"
     >
       <div className="card">
         <img

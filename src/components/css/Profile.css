@@ -1,0 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap') ;
+
+.profile-email {
+  color: antiquewhite;
+  font-family: Lobster , cursive;
+  font-size: 30px;
+  text-align: center;
+}
+
+.profile-btns-container {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+.profile-btns-container > button {
+  background-color: #bf0413;
+  border: none;
+  border-radius: 5px;
+  color: antiquewhite;
+  font-weight: 900;
+  padding: 12px;
+}

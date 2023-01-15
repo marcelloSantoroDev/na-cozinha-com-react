@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import blackHeart from '../images/blackHeartIcon.svg';
-import Share from '../images/shareIcon.svg';
+import Share from '../images/share2.png';
 import { getCurrentFavorites } from '../redux/actions';
 
 function FavoriteRecipesCard(props) {
@@ -31,16 +31,18 @@ function FavoriteRecipesCard(props) {
     }
   };
   return (
-    <div>
+    <div className="done-list-container">
       <Link
         to={ recipe.type === 'meal' ? `/meals/${recipe.id}`
           : `/drinks/${recipe.id}` }
+        className="done-link"
       >
         <img
           data-testid={ `${index}-horizontal-image` }
           src={ recipe.image }
           alt="recipe-img"
           width="150px"
+          className="done-img"
         />
         <p data-testid={ `${index}-horizontal-name` }>{recipe.name}</p>
       </Link>
@@ -60,25 +62,27 @@ function FavoriteRecipesCard(props) {
       )}
 
       {isThisRecipeShared && <p>Link copied!</p>}
-      <button
-        type="button"
-        data-testid={ `${index}-horizontal-share-btn` }
-        onClick={ handleShareClick }
-        src={ Share }
-      >
-        <img src={ Share } alt="share-icon" />
-      </button>
-      <button
-        type="button"
-        data-testid={ `${index}-horizontal-favorite-btn` }
-        onClick={ handleUnfavoriteClick }
-        src={ blackHeart }
-      >
-        <img
+      <div className="fav-share-like">
+        <button
+          type="button"
+          data-testid={ `${index}-horizontal-share-btn` }
+          onClick={ handleShareClick }
+          src={ Share }
+        >
+          <img src={ Share } alt="share-icon" />
+        </button>
+        <button
+          type="button"
+          data-testid={ `${index}-horizontal-favorite-btn` }
+          onClick={ handleUnfavoriteClick }
           src={ blackHeart }
-          alt="unfavorite meal"
-        />
-      </button>
+        >
+          <img
+            src={ blackHeart }
+            alt="unfavorite meal"
+          />
+        </button>
+      </div>
     </div>
   );
 }

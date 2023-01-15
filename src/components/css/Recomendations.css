@@ -3,6 +3,7 @@
   gap: 10px;
   height: 20vh;
   left: 12px;
+  margin-left: 27px;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   width: 90%;
@@ -12,5 +13,5 @@
   border-radius: 10px;
   height: 80px;
   padding: 5px;
-  width: 155px;
+  width: 168px;
 }

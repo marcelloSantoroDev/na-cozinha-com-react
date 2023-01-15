@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import profileIcon from '../images/profileIcon.svg';
-import searchIcon from '../images/searchIcon.svg';
+import { Link, useLocation } from 'react-router-dom';
 import './css/Header.css';
 import SearchBar from './SearchBar';
 
 function Header(props) {
   const [showSearchInput, setShowSearchInput] = useState(false);
+  const { pathname } = useLocation();
 
   const handleSearchInput = () => {
     setShowSearchInput(!showSearchInput);
@@ -16,26 +15,19 @@ function Header(props) {
   return (
     <header>
       <div className="main-header">
-        <h1 data-testid="page-title">
+        <h1 data-testid="page-title" className="page-title">
           { title }
         </h1>
-        <Link
-          to="/profile"
-          className="profile-button"
-        >
-          <img
-            src={ profileIcon }
-            alt="profile icon"
-            data-testid="profile-top-btn"
-          />
-        </Link>
+        { pathname !== '/profile' && (
+          <Link
+            to="/profile"
+            className="profile-button"
+          >
+            <h1 className="page-title">Profile</h1>
+          </Link>)}
         { showSearch && (
           <button className="searchBarButton" type="button" onClick={ handleSearchInput }>
-            <img
-              src={ searchIcon }
-              alt="search icon"
-              data-testid="search-top-btn"
-            />
+            <h1 className="page-title">Search</h1>
           </button>)}
       </div>
       {showSearchInput && <SearchBar title={ title } />}

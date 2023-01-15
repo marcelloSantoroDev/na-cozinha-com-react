@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import copy from 'clipboard-copy';
-import whiteHeart from '../images/whiteHeartIcon.svg';
-import blackHeart from '../images/blackHeartIcon.svg';
-import shareIcon from '../images/shareIcon.svg';
+import whiteHeart from '../images/whiteheart.png';
+import blackHeart from '../images/blackheart.png';
+import shareIcon from '../images/share.png';
 import CheckBox from './CheckBox';
+import './css/InProgress.css';
 
 function MealInProgress(props) {
   const { details } = props;
@@ -144,46 +145,57 @@ function MealInProgress(props) {
             data-testid="share-btn"
             src={ shareIcon }
             onClick={ handleShareClick }
+            className="details-btn"
           >
-            Share
-            <img src={ shareIcon } alt="share-icon" width="12px" />
+
+            <img src={ shareIcon } alt="share-icon" width="40px" />
           </button>
           <button
             type="button"
             data-testid="favorite-btn"
             onClick={ handleFavoriteClick }
             src={ isThisMealFavorited ? blackHeart : whiteHeart }
+            className="details-btn"
           >
-            Favorite
             <img
               src={ isThisMealFavorited ? blackHeart : whiteHeart }
               alt="unfavorited meal"
-              width="12px"
+              width="40px"
             />
           </button>
         </div>
-        { isThisMealShared && <p>Link copied!</p> }
-        <h1 data-testid="recipe-title">{strMeal}</h1>
-        <h4 data-testid="recipe-category">{`Category: ${strCategory}`}</h4>
-        <img
-          data-testid="recipe-photo"
-          src={ strMealThumb }
-          alt={ strMeal }
-          width="150px"
-        />
-        <ul>
-          { arrayToMap.map((e, index) => (
-            <CheckBox
-              e={ e }
-              index={ index }
-              key={ e + index }
-              id={ idMeal }
-              type="meal"
-            />
-          )) }
-        </ul>
-        <h4>Instructions</h4>
-        <p data-testid="instructions">{strInstructions}</p>
+        { isThisMealShared && <p className="copied">Link copied!</p> }
+        <div className="rcp-container">
+          <h1 data-testid="recipe-title" className="recipe-title">{strMeal}</h1>
+          <h4
+            data-testid="recipe-category"
+            className="recipe-category"
+          >
+            {`Category: ${strCategory}`}
+
+          </h4>
+          <img
+            data-testid="recipe-photo"
+            src={ strMealThumb }
+            alt={ strMeal }
+            width="350px"
+            className="recipe-photo"
+          />
+          <ul>
+            { arrayToMap.map((e, index) => (
+              <CheckBox
+                className="ingredient-list"
+                e={ e }
+                index={ index }
+                key={ e + index }
+                id={ idMeal }
+                type="meal"
+              />
+            )) }
+          </ul>
+          <h4 className="instructions">Instructions</h4>
+          <p data-testid="instructions">{strInstructions}</p>
+        </div>
       </div>
       <div className="finish-button-container">
         <button

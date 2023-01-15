@@ -6,10 +6,17 @@
 }
 
 .card img {
+  border-radius: 10px;
   padding-bottom: 5px;
   width: 100%;
 }
 
 .card span {
   padding-bottom: 5px;
+}
+
+.card-link {
+  color: antiquewhite;
+  text-align: center;
+  text-decoration: none;
 }

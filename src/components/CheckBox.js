@@ -92,6 +92,7 @@ function CheckBox(props) {
   return (
     <li
       data-testid={ `${index}-ingredient-name-and-measure` }
+      className="ingredient-list"
     >
       <label
         className={ isThisStepChecked ? 'Checked' : undefined }

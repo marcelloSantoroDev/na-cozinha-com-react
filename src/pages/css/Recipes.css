@@ -7,8 +7,12 @@
 }
 
 .filter-btns {
-  background-color: antiquewhite;
+  background-color: #bf0413;
   border: none;
+  border-radius: 5px;
+  color: antiquewhite;
+  font-weight: 900;
+  padding: 2px;
 }
 
 .categories-container {

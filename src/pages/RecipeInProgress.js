@@ -4,6 +4,7 @@ import { useLocation, useParams } from 'react-router-dom';
 import DrinkInProgress from '../components/DrinkInProgress';
 import MealInProgress from '../components/MealInProgress';
 import { thunkToDrinkDetails, thunkToMealDetails } from '../redux/actions';
+import '../components/css/InProgress.css';
 
 function RecipeInProgress() {
   const recipeDetails = useSelector((state) => state.getRecipesReducer.recipeDetails);

@@ -1,6 +1,8 @@
+import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import FavoriteRecipesCard from '../components/FavoriteRecipesCard';
 import Header from '../components/Header';
+import './css/DoneRecipes.css';
 
 function FavoriteRecipes() {
   const [favoriteRecipes, setFavoriteRecipes] = useState([]);
@@ -40,13 +42,14 @@ function FavoriteRecipes() {
       <Header
         title="Favorite Recipes"
       />
-      <div>
+      <div className="done-btns-container">
         <button
           type="button"
           name="button"
           data-testid="filter-by-all-btn"
           value="All"
           onClick={ handleFilterClick }
+          className="done-btn"
         >
           All
         </button>
@@ -57,6 +60,7 @@ function FavoriteRecipes() {
           data-testid="filter-by-meal-btn"
           value="Meals"
           onClick={ handleFilterClick }
+          className="done-btn"
         >
           Meals
         </button>
@@ -67,6 +71,7 @@ function FavoriteRecipes() {
           data-testid="filter-by-drink-btn"
           value="Drinks"
           onClick={ handleFilterClick }
+          className="done-btn"
         >
           Drinks
         </button>

@@ -1,3 +1,79 @@
 .Checked {
   text-decoration: line-through solid black;
 }
+
+.progress-section {
+  text-align: center;
+}
+
+.start-button {
+  background-color: #bf0413;
+  border: none;
+  bottom: 0;
+  color: antiquewhite;
+  display: flex;
+  font-weight: 900;
+  margin-left: 160px;
+  margin-top: 10px;
+  padding: 5px 15px;
+  position: fixed;
+}
+
+.details-section {
+  border: solid;
+  text-align: center;
+}
+
+.ingredient-list {
+  list-style-type: none;
+  margin-right: 30px;
+}
+
+.details-btn {
+  background-color: #618c03;
+  border: none;
+}
+
+.recipe-photo {
+  align-self: center;
+  border-radius: 5px;
+}
+
+.rcp-container {
+  background-color: #f2b705;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  padding: 5px;
+  width: 400px;
+}
+
+.finish-button {
+  border: none;
+  bottom: 0;
+  display: flex;
+  font-weight: 900;
+  margin-left: 160px;
+  margin-top: 10px;
+  padding: 5px 15px;
+  position: fixed;
+}
+
+
+.finish-button:enabled {
+  background-color: #bf0413;
+  border: none;
+  bottom: 0;
+  color: antiquewhite;
+  display: flex;
+  font-weight: 900;
+  margin-left: 160px;
+  margin-top: 10px;
+  padding: 5px 15px;
+  position: fixed;
+}
+
+.copied {
+  color: antiquewhite;
+}

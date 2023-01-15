@@ -4,9 +4,10 @@ import copy from 'clipboard-copy';
 import { thunkToDrinkRecomendations } from '../redux/actions';
 import DrinkRecomendationCard from './DrinkRecomendationCard';
 import './css/Recomendations.css';
-import whiteHeart from '../images/whiteHeartIcon.svg';
-import blackHeart from '../images/blackHeartIcon.svg';
-import shareIcon from '../images/shareIcon.svg';
+import whiteHeart from '../images/whiteheart.png';
+import blackHeart from '../images/blackheart.png';
+import shareIcon from '../images/share.png';
+import '../pages/css/RecipeDetails.css';
 
 function MealRecipeDetailsCard(props) {
   const { details } = props;
@@ -69,25 +70,10 @@ function MealRecipeDetailsCard(props) {
     setIsThisMealShared(true);
   };
 
-  const { strIngredient1,
-    strIngredient2,
-    strIngredient3,
-    strIngredient4,
-    strIngredient5,
-    strIngredient6,
-    strIngredient7,
-    strIngredient8,
-    strIngredient9,
-    strIngredient10,
-    strIngredient11,
-    strIngredient12,
-    strIngredient13,
-    strIngredient14,
-    strIngredient15,
-    strIngredient16,
-    strIngredient17,
-    strIngredient18,
-    strIngredient19,
+  const { strIngredient1, strIngredient2, strIngredient3, strIngredient4, strIngredient5,
+    strIngredient6, strIngredient7, strIngredient8, strIngredient9, strIngredient10,
+    strIngredient11, strIngredient12, strIngredient13, strIngredient14, strIngredient15,
+    strIngredient16, strIngredient17, strIngredient18, strIngredient19,
     strIngredient20 } = details;
 
   const { strMeasure1,
@@ -172,52 +158,62 @@ function MealRecipeDetailsCard(props) {
             data-testid="share-btn"
             src={ shareIcon }
             onClick={ handleShareClick }
+            className="details-btn"
           >
-            Share
-            <img src={ shareIcon } alt="share-icon" width="12px" />
+            <img src={ shareIcon } alt="share-icon" width="40px" />
           </button>
           <button
             type="button"
             data-testid="favorite-btn"
             onClick={ handleFavoriteClick }
             src={ isThisMealFavorited ? blackHeart : whiteHeart }
+            className="details-btn"
           >
-            Favorite
             <img
               src={ isThisMealFavorited ? blackHeart : whiteHeart }
               alt="unfavorited meal"
-              width="12px"
+              width="40px"
             />
           </button>
         </div>
-        { isThisMealShared && <p>Link copied!</p> }
-        <h1 data-testid="recipe-title">{strMeal}</h1>
-        <h4 data-testid="recipe-category">{`Category: ${strCategory}`}</h4>
-        <img
-          data-testid="recipe-photo"
-          src={ strMealThumb }
-          alt={ strMeal }
-          width="150px"
-        />
-        <ul>
-          { arrayToMap.map((e, index) => (
-            <li
-              data-testid={ `${index}-ingredient-name-and-measure` }
-              key={ e + index }
-            >
-              {e}
+        { isThisMealShared && <p className="copied">Link copied!</p> }
+        <div className="rcp-container">
+          <h1 data-testid="recipe-title" className="recipe-title">{strMeal}</h1>
+          <h5
+            data-testid="recipe-category"
+            className="recipe-category"
+          >
+            {`${strCategory}`}
 
-            </li>
-          )) }
-        </ul>
-        <h4>Instructions</h4>
-        <p data-testid="instructions">{strInstructions}</p>
-        <iframe
-          data-testid="video"
-          title={ strMeal }
-          src={ `https://www.youtube.com/embed/${embedId}` }
-          frameBorder="0"
-        />
+          </h5>
+          <img
+            data-testid="recipe-photo"
+            src={ strMealThumb }
+            alt={ strMeal }
+            width="350px"
+            className="recipe-photo"
+          />
+          <ul>
+            { arrayToMap.map((e, index) => (
+              <li
+                className="ingredient-list"
+                data-testid={ `${index}-ingredient-name-and-measure` }
+                key={ e + index }
+              >
+                {e}
+
+              </li>
+            )) }
+          </ul>
+          <h4 className="instructions">Instructions</h4>
+          <p data-testid="instructions" className="instructions">{strInstructions}</p>
+          <iframe
+            data-testid="video"
+            title={ strMeal }
+            src={ `https://www.youtube.com/embed/${embedId}` }
+            frameBorder="0"
+          />
+        </div>
 
       </div>
       <div className="recomendations-container">

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
+import Loading from '../components/Loading';
 import RecipeCard from '../components/RecipeCard';
 import { thunkToRenderDrinksRecipes,
   thunkToRenderMealsRecipes,
@@ -19,6 +20,7 @@ function Recipes() {
 
   const recipes = useSelector((state) => state.getRecipesReducer.recipes);
   const categories = useSelector((state) => state.getRecipesReducer.categories);
+  const loading = useSelector((state) => state.getRecipesReducer.loading);
 
   const [categoryButton, setCategoryButton] = useState({
     categorySelected: '',
@@ -103,7 +105,7 @@ function Recipes() {
           )) }
       </section>
       <section className="cards-container">
-        { recipes !== null
+        { loading ? <Loading /> : recipes !== null
             && recipes?.filter((_e, i) => i < TWELVE).map((recipe, index) => (
               <RecipeCard
                 key={ location.pathname === '/meals'
