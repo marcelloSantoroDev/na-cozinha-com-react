@@ -1,0 +1,35 @@
+.search-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.search-container {
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  margin-top: 5px;
+  width: 300px;
+}
+
+.search-container > button {
+  background-color: #bf0413;
+  border: none;
+  border-radius: 3px;
+  color: antiquewhite;
+  display: flex;
+  font-weight: 900;
+  justify-content: center;
+  margin: auto;
+  margin-top: 4px;
+  padding: 2px;
+  width: 100px;
+}
+
+.radios-container {
+  align-self: center;
+  display: flex;
+  margin-bottom: 20px;
+  margin-top: 5px;
+  width: 300px;
+}
+

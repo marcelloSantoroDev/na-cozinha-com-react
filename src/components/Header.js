@@ -16,8 +16,12 @@ function Header(props) {
   return (
     <header>
       <div className="main-header">
+        <h1 data-testid="page-title">
+          { title }
+        </h1>
         <Link
           to="/profile"
+          className="profile-button"
         >
           <img
             src={ profileIcon }
@@ -34,9 +38,6 @@ function Header(props) {
             />
           </button>)}
       </div>
-      <h1 data-testid="page-title">
-        { title }
-      </h1>
       {showSearchInput && <SearchBar title={ title } />}
     </header>
   );

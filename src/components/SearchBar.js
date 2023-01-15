@@ -6,6 +6,7 @@ import {
   drinkFirstLetterFetch, drinkIngredientFetch, drinkNameFetch, firstLetterFetch,
   ingredientFetch, nameFetch,
 } from '../services/SearchBarFetch';
+import './css/SearchBar.css';
 
 const firstLetterString = 'First Letter';
 
@@ -81,7 +82,7 @@ function SearchBar(props) {
   const { inputValue } = inputs;
   const { title } = props;
   return (
-    <section>
+    <section className="search-section">
       <div className="search-container">
         <input
           type="text"

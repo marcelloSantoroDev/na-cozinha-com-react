@@ -81,6 +81,7 @@ function Recipes() {
           value="All"
           data-testid="All-category-filter"
           type="button"
+          className="filter-btns"
         >
           All
 
@@ -95,6 +96,7 @@ function Recipes() {
               key={ category.strCategory }
               type="button"
               onClick={ handleClick }
+              className="filter-btns"
             >
               {category.strCategory}
             </button>

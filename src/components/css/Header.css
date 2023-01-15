@@ -1,5 +1,15 @@
 .searchBarButton {
-  align-self: flex-end;
-  background-color: white;
+  background-color: #f2b705;
   border: none;
+}
+
+.main-header {
+  background-color: #f2b705;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.profile-button {
+  align-self: center;
 }
