@@ -1,8 +1,8 @@
 .done-btn {
-  background-color: #bf0413;
+  background-color: #8d180e;
   border: none;
   border-radius: 5px;
-  color: antiquewhite;
+  color: #f2efeb;
   font-weight: 900;
   padding: 2px;
 }
@@ -20,7 +20,7 @@
 }
 
 .done-list-container {
-  background-color: #f2b705;
+  background-color: #f2ce1b;
   border-radius: 5px;
   display: flex;
   flex-direction: column;
@@ -31,7 +31,7 @@
 }
 
 .done-list-container > button {
-  background-color: #f2b705;
+  background-color: #f2ce1b;
   border: none;
 }
 
@@ -46,6 +46,6 @@
 }
 
 .fav-share-like > button {
-  background-color: #f2b705;
+  background-color: #f2ce1b;
   border: none;
 }

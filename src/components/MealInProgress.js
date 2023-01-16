@@ -167,13 +167,13 @@ function MealInProgress(props) {
         { isThisMealShared && <p className="copied">Link copied!</p> }
         <div className="rcp-container">
           <h1 data-testid="recipe-title" className="recipe-title">{strMeal}</h1>
-          <h4
+          <h5
             data-testid="recipe-category"
             className="recipe-category"
           >
-            {`Category: ${strCategory}`}
+            {`${strCategory}`}
 
-          </h4>
+          </h5>
           <img
             data-testid="recipe-photo"
             src={ strMealThumb }

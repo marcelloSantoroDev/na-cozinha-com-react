@@ -7,10 +7,10 @@
 }
 
 .filter-btns {
-  background-color: #bf0413;
-  border: none;
+  background-color: #8d180e;
+  border: #f2efeb;
   border-radius: 5px;
-  color: antiquewhite;
+  color: #f2efeb;
   font-weight: 900;
   padding: 2px;
 }

@@ -7,10 +7,11 @@
 }
 
 .start-button {
-  background-color: #bf0413;
+  background-color: #f2efeb;
   border: none;
+  border-radius: 3px;
   bottom: 0;
-  color: antiquewhite;
+  color: #bf463b;
   display: flex;
   font-weight: 900;
   margin-left: 160px;
@@ -30,7 +31,7 @@
 }
 
 .details-btn {
-  background-color: #618c03;
+  background-color: #bf463b;
   border: none;
 }
 
@@ -40,7 +41,7 @@
 }
 
 .rcp-container {
-  background-color: #f2b705;
+  background-color: #f2ce1b;
   border-radius: 5px;
   display: flex;
   flex-direction: column;
@@ -62,10 +63,11 @@
 
 
 .finish-button:enabled {
-  background-color: #bf0413;
+  background-color: #f2efeb;
   border: none;
+  border-radius: 3px;
   bottom: 0;
-  color: antiquewhite;
+  color: #bf463b;
   display: flex;
   font-weight: 900;
   margin-left: 160px;
@@ -75,5 +77,5 @@
 }
 
 .copied {
-  color: antiquewhite;
+  color: #f2efeb;
 }

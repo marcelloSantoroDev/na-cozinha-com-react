@@ -160,45 +160,47 @@ function DrinkInProgress(props) {
           </button>
         </div>
         { isThisDrinkShared && <p className="copied">Link copied!</p> }
-        <h1 data-testid="recipe-title" className="recipe-title">{strDrink}</h1>
-        <h5
-          data-testid="recipe-category"
-          className="recipe-category"
-        >
-          {`Category: ${strCategory}, ${strAlcoholic}`}
+        <div className="rcp-container">
+          <h1 data-testid="recipe-title" className="recipe-title">{strDrink}</h1>
+          <h5
+            data-testid="recipe-category"
+            className="recipe-category"
+          >
+            {`${strCategory}, ${strAlcoholic}`}
 
-        </h5>
-        <img
-          data-testid="recipe-photo"
-          src={ strDrinkThumb }
-          alt={ strDrink }
-          width="350px"
-          className="recipe-photo"
-        />
-        <ul>
-          { arrayToMap.map((e, index) => (
-            <CheckBox
-              e={ e }
-              index={ index }
-              key={ e + index }
-              type="drink"
-              id={ idDrink }
-            />
-          )) }
-        </ul>
-        <h4>Instructions</h4>
-        <p data-testid="instructions">{strInstructions}</p>
-      </div>
-      <div className="finish-button-container">
-        <button
-          data-testid="finish-recipe-btn"
-          type="button"
-          className="finish-button"
-          disabled={ arrayToMap.length !== checkedSteps }
-          onClick={ handleFinishClick }
-        >
-          Finish Recipe
-        </button>
+          </h5>
+          <img
+            data-testid="recipe-photo"
+            src={ strDrinkThumb }
+            alt={ strDrink }
+            width="350px"
+            className="recipe-photo"
+          />
+          <ul>
+            { arrayToMap.map((e, index) => (
+              <CheckBox
+                e={ e }
+                index={ index }
+                key={ e + index }
+                type="drink"
+                id={ idDrink }
+              />
+            )) }
+          </ul>
+          <h4>Instructions</h4>
+          <p data-testid="instructions">{strInstructions}</p>
+        </div>
+        <div className="finish-button-container">
+          <button
+            data-testid="finish-recipe-btn"
+            type="button"
+            className="finish-button"
+            disabled={ arrayToMap.length !== checkedSteps }
+            onClick={ handleFinishClick }
+          >
+            Finish Recipe
+          </button>
+        </div>
       </div>
     </section>
   );

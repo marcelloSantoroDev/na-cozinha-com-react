@@ -1,4 +1,5 @@
 .recomendations-container {
+  color: #f2efeb;
   display: flex;
   gap: 10px;
   height: 20vh;

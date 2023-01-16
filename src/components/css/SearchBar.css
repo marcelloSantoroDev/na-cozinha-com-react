@@ -12,10 +12,10 @@
 }
 
 .search-container > button {
-  background-color: #bf0413;
+  background-color: #8d180e;
   border: none;
   border-radius: 3px;
-  color: antiquewhite;
+  color: #f2efeb;
   display: flex;
   font-weight: 900;
   justify-content: center;
