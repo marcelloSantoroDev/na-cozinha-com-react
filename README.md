@@ -1,5 +1,5 @@
-<h1>APP DE RECEITAS (PROJETO EM GRUPO DE CONCLUSÃO DO MÓDULO FRONT-END)</h1>
-<p>Nesta aplicação, criamos uma aplicação de receitas de comidas e bebidas</p>
+<h1>APP DE RECEITAS (PROJETO EM GRUPO DE CONCLUSÃO DO MÓDULO FRONT-END DA TRYBE)</h1>
+<p>Neste projeto, criamos uma aplicação de receitas de comidas e bebidas</p>
 <h2>Grupo:</h2>
 <ul>
 <li>Marcello Santoro</li>
