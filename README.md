@@ -16,7 +16,7 @@ Este é um projeto em grupo para aprender React e suas boas práticas de desenvo
 1. Clone este repositório com `git clone https://github.com/marcelloSantoroDev/na-cozinha-com-react.git`
 
 ```bash
-https://github.com/marcelloSantoroDev/na-cozinha-com-react.git
+git clone https://github.com/marcelloSantoroDev/na-cozinha-com-react.git
 ```
 
 2. Entre na pasta do projeto com `cd na-cozinha-com-react`
