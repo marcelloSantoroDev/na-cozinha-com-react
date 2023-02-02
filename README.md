@@ -25,23 +25,14 @@ https://github.com/marcelloSantoroDev/na-cozinha-com-react.git
 cd na-cozinha-com-react
 ```
 
-3. Instale as dependências com `npm install` ou `yarn install`
+3. Instale as dependências com `npm install`
 
 ```bash
 npm install
 ```
 
-```bash
-yarn install
-```
-
-4. Inicie o projeto com `npm start` ou `yarn start`
+4. Inicie o projeto com `npm start`
 
 ```bash
 npm start
 ```
-
-```bash
-yarn start
-```
-
